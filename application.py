@@ -50,9 +50,10 @@ def registerproduct():
         "img_path": "static/img/" + image_file.filename
     }
     DB.insert_item(data['product_category'], data, image_file.filename)
-    return render_template("products_list.html", data={ "img_path": "static/img/" + image_file.filename, **data })
+    return render_template("product_list.html", data=data)
 
-@app.route("/list")
+
+@app.route("/products-list")
 def view_list():
     page = request.args.get("page", 0, type=int)
     per_page = 6  # item count to display per page
@@ -68,8 +69,7 @@ def view_list():
     
     row_data = [list(data.items())[i * per_row:(i + 1) * per_row] for i in range(per_page // per_row)]
 
-    return render_template("list.html", row_data=row_data, limit=per_page,page=page, page_count=int((item_counts/per_page)+1),total=item_counts)
-
+    return render_template("product_list.html", row_data=row_data, limit=per_page,page=page, page_count=int((item_counts/per_page)+1),total=item_counts)
 
 
 @app.route("/view_detail/<name>/")
@@ -82,9 +82,7 @@ def view_item_detail(name):
 def productDetail():
     return render_template('product_detail.html')
 
-@app.route("/products-list")
-def productsList():
-    return render_template('products_list.html')
+
 
 
 
