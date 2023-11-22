@@ -1,4 +1,4 @@
-from flask import Flask, render_template , url_for, request, redirect , flash, session
+from flask import Flask, render_template, url_for, request, redirect , flash, session
 from database import DBhandler
 import hashlib
 
@@ -15,14 +15,28 @@ def index():
 @app.route('/mypage')
 def mypage():
     return render_template('mypage.html')
+
 @app.route('/login')
 def login():
     return render_template('login.html')
 
-
-
-
-
+@app.route("/login_confirm", methods=['POST'])
+def login_user():
+    id_=request.form['id']
+    pw=request.form['pw']
+    pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
+    if DB.find_user(id_,pw_hash):
+        session['id']=id
+        return redirect(url_for('view_list'))
+    else:
+        flash("Wrong ID or PW!")
+        return render_template("login.html")
+    
+@app.route("/logout")
+def logout_user():
+    session.clear()
+    return redirect(url_for('view_list'))
+    
 @app.route("/product-add") 
 def productAdd():
     return render_template('product_add.html')
@@ -59,7 +73,7 @@ def view_list():
     per_row = 3  # item count to display per row   
     start_idx=per_page*page
     end_idx=per_page*(page+1)
-   
+
     data = DB.get_items()  # read the table
     
     item_counts = len(data)

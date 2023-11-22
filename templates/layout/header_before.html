@@ -8,7 +8,12 @@
       <a href="{{url_for('index')}}" target="_self" id="logo"
         ><img src="../../static/img/위시윗 로고.png" alt="logo"
       /></a>
+      
       {% if session['id'] %}
+      <li><a href="/logout"><b>{{session['id']}}님 반갑습니다!</b> logout</a></li>
+      {% else %}
+      <li><a href="/login">login</a></li>
+      {% endif %}
       <!-- 로그인 상태일 때 보여질 내용 -->
       <div class="myInfo">
         <a href="{{ url_for('productAdd') }}" target="_self" id="reg-btn"
