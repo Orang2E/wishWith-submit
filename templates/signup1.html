@@ -2,9 +2,15 @@
 <html>
   <head>
     <link rel="stylesheet" type="text/css" href="../static/css/signup1.css" />
+
+    {% with mesg = get_flashed_messages() %} {% if mesg !=[] %}
+    <script>
+      alert("{{ mesg[0] }}");
+    </script>
+    {% endif %} {% endwith %}
   </head>
   <body>
-    <a href="index.html" target="_parent" id="ximg"
+    <a href="{{url_for('index')}}" target="_parent" id="ximg"
       ><svg
         width="44"
         height="44"
@@ -82,16 +88,5 @@
       </div>
       <input type="submit" value="생성" />
     </form>
-    <script>
-      window.onload = function() {
-          {% with messages = get_flashed_messages() %}
-              {% if messages %}
-                  {% for message in messages %}
-                      alert("{{ message }}");
-                  {% endfor %}
-              {% endif %}
-          {% endwith %}
-      };
-    </script>
   </body>
 </html>

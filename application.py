@@ -9,8 +9,8 @@ DB = DBhandler()
 
 @app.route('/')
 def index():
-    #return render_template('index.html')
-    return redirect(url_for('view_list'))
+    return render_template('index.html')
+
 
 @app.route('/mypage')
 def mypage():
@@ -27,6 +27,12 @@ def login():
 def productAdd():
     return render_template('product_add.html')
 
+@app.route("/header-before")
+def headerBefore():
+    return render_template('layout/header_before.html')
+@app.route("/header-after")
+def headerAfter():
+    return render_template('layout/header_after.html')
 
 @app.route("/add-product-post", methods=["POST"])
 def registerproduct():
@@ -115,10 +121,22 @@ def register_user():
     pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
     
     if DB.insert_user(data, pw_hash):
-        return render_template("signup3.html")
+        return render_template('signup3.html')
     else:
-        flash("user id already exist!")
-        return render_template("signup1.html")
+        flash("이미 존재하는 아이디입니다!")
+        return redirect(url_for('signup1'))
+    
+@app.route("/login_confirm", methods=['POST'])
+def login_user():
+    id_=request.form['id']
+    pw=request.form['password']
+    pw_hash = hashlib.sha256(pw.encode('utf-8')).hexdigest()
+    if DB.find_user(id_,pw_hash):
+        session['id']=id_
+        return redirect(url_for('index'))
+    else:
+        flash("존재하지 않는 정보입니다! 다시 로그인을 시도해주세요.")
+        return redirect(url_for('login'))
 
 
 
