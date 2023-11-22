@@ -138,6 +138,10 @@ def login_user():
         flash("존재하지 않는 정보입니다! 다시 로그인을 시도해주세요.")
         return redirect(url_for('login'))
 
+@app.route("/logout")
+def logout_user():
+    session.clear()
+    return redirect(url_for('index'))
 
 
 

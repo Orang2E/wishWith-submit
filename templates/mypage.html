@@ -11,9 +11,7 @@
   />
   </head>
   <body>
-    <div class="header">
-      <img src="../media/위시윗 로고.png" alt="위시윗로고" />
-    </div>
+    <div id="header"></div>
     <div class="banner"></div>
     <div class="body">
       <div class="body top">
@@ -261,4 +259,11 @@
     </div>
     <div class="footer"></div>
   </body>
+  <script>
+    fetch("/header-before")
+      .then((response) => response.text())
+      .then((data) => {
+        document.getElementById("header").innerHTML = data;
+      });
+  </script>
 </html>
