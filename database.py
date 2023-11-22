@@ -7,6 +7,7 @@ class DBhandler:
             config = json.load(f)
             firebase = pyrebase.initialize_app(config)
             self.db = firebase.database()
+            self.storage = firebase.storage()
 
     def insert_item(self, name, data, img_path):
         item_info = {
