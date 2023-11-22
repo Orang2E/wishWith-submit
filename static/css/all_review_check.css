@@ -56,13 +56,13 @@ body {
 }
 
 @media (min-width: 1450px) {
-  /* 너비가 1200px 이하일 때 */
+  /* 너비가 1450px 이상일 때 */
   .container {
     width: 1500px;
   }
 }
 @media (max-width: 1450px) {
-  /* 너비가 1200px 이하일 때 */
+  /* 너비가 1450px 이하일 때 */
   .container {
     width: 1150px;
   }
