@@ -16,7 +16,8 @@
         {% for row in row_data %}
       <div class="card-container1">
         {% for key, value in row %}
-        <div class="container" id="cont1-5">
+        <div class="container" onclick="location.href='/view_detail/{{key}}/';"
+        style="cursor: pointer" id="cont1-5">
           <div class="inner-box1">
             <div class="inner-textbox">
               <div class="category">
