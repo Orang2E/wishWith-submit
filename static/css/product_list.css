@@ -243,3 +243,10 @@ p {
   text-decoration: none;
   font-weight: bold;
 }
+#heart {
+  color: grey;
+}
+
+#heart.red {
+ color: red;
+}
