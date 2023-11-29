@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="../static/css/review_detail.css"
+    />
+  </head>
+  <body>
+    <div class="box1">
+      <div style="display: flex; flex-direction: row">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="16"
+          height="16"
+          viewBox="0 0 16 16"
+          fill="none"
+        >
+          <circle cx="8" cy="8" r="8" fill="#00664F" />
+        </svg>
+        <p class="box3">{{review.name}}</p>
+      </div>
+
+      <p class="box4">{{review.review}}</p>
+      <hr class="box5" />
+      <p class="box6">{{review.title}}</p>
+      <img
+        src="/static/img/{{review.img_path}}"
+        ,
+        width="300px,"
+        height="300px"
+      />
+    </div>
+  </body>
+</html>
