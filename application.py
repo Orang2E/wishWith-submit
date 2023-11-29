@@ -1,4 +1,4 @@
-from flask import Flask, render_template , url_for, request, redirect , flash, session
+from flask import Flask, render_template , url_for, request, redirect , flash, session, jsonify
 from database import DBhandler
 import hashlib
 
@@ -197,7 +197,20 @@ def view_review_detail(review_name):
         flash("Review not found!")
         return redirect(url_for('view_review'))
     
+@app.route('/show_heart/<name>/', methods=['GET'])
+def show_heart(name):
+    my_heart = DB.get_heart_byname(session['id'], name)
+    return jsonify({'my_heart': my_heart})
 
+@app.route('/like/<name>/', methods=['POST'])
+def like(name):
+    my_heart = DB.update_heart(session['id'],'Y',name)
+    return jsonify({'msg': '위시 상품에 등록되었습니다!'})
+
+@app.route('/unlike/<name>/', methods=['POST'])
+def unlike(name):
+    my_heart = DB.update_heart(session['id'],'N',name)
+    return jsonify({'msg': '위시 상품에서 제외되었습니다.'})
 
 
 if __name__ == '__main__':
