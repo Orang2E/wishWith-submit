@@ -1,0 +1,164 @@
+select {
+  display: flex;
+  position: relative;
+}
+
+.submit-section {
+  position: absolute;
+  right: 5%;
+  float: right;
+  display: flex;
+  width: 124.225px;
+  height: 32.251px;
+  padding: 2.389px 7.167px;
+  justify-content: center;
+  align-items: center;
+  gap: 23.889px;
+  flex-shrink: 0;
+}
+
+#button1 {
+  background-color: #f5f5f5;
+  color: #5bab93;
+  border-color: #f5f5f5;
+  display: flex;
+  width: 124.225px;
+  height: 32.251px;
+  padding: 2.389px 7.167px;
+  justify-content: center;
+  align-items: center;
+  gap: 23.889px;
+  flex-shrink: 0;
+  border-radius: 4.778px;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+}
+
+#button2 {
+  background-color: #5bab93;
+  border-color: #5bab93;
+  color: #f5f5f5;
+  display: flex;
+  width: 124.225px;
+  height: 32.251px;
+  padding: 2.389px 7.167px;
+  justify-content: center;
+  align-items: center;
+  gap: 23.889px;
+  flex-shrink: 0;
+  border-radius: 4.778px;
+  cursor: pointer;
+  outline: none;
+  box-shadow: none;
+}
+
+#title1 {
+  width: 196px;
+  height: 43px;
+  color: #000;
+  font-family: Pretendard Variable;
+  font-size: 26px;
+  font-style: normal;
+  font-weight: 700;
+  line-height: normal;
+  margin-left: 5%;
+  margin-top: 100px;
+}
+
+.tabs div:hover {
+  border-bottom: 3px solid #5bab93;
+}
+
+.tabs {
+  display: inline;
+  float: left;
+  margin-left: 5%;
+  margin-top: 10px;
+}
+
+.tab {
+  display: inline;
+  float: left;
+  color: #000;
+  text-align: center;
+  font-family: Pretendard Variable;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 550;
+  line-height: normal;
+  padding: 8px;
+}
+
+.review-write {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-section {
+  display: flex;
+  width: 90%;
+  margin: auto;
+  flex-direction: column;
+}
+
+.form-section label {
+  font-weight: bold;
+  margin-top: 10px;
+}
+
+.form-section p {
+  margin-top: 5px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.form-section select,
+.form-section textarea {
+  margin-top: 10px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-section textarea {
+  height: 100px;
+  resize: vertical;
+}
+
+.form-section button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: #f0f0f0;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-section button:hover {
+  background-color: #e7e7e7;
+}
+
+#backicon {
+  position: absolute;
+  left: 5%;
+  top: 40px;
+}
+
+#photo-upload {
+  width: 150px;
+  display: inline-flex;
+  padding: 10px 30px;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+  border-radius: 30px;
+  border: 1px solid #d9d9d9;
+
+  background: #fff;
+}

@@ -143,6 +143,71 @@ def logout_user():
     session.clear()
     return redirect(url_for('index'))
 
+@app.route("/reg_review_init/<name>/")
+def reg_review_init(name):
+    return render_template("review_add.html", name=name)
+
+@app.route("/reg_review", methods=['POST'])
+def reg_review():
+    print(request.files)
+    image_file = request.files.get("img_path")
+    image_file.save("static/img/{}".format(image_file.filename))
+    
+    # 'reviewStar' 키가 없을 경우 기본값으로 '0' 사용
+    rate = request.form.get('reviewStar', '0')
+
+    data = {
+        'name': request.form['name'],
+        'title': request.form['title'],
+        'rate': rate,
+        'review': request.form['reviewContents'],
+        "img_path": "static/img/" + image_file.filename
+    }
+    DB.reg_review(data, image_file.filename)
+    return redirect(url_for('view_review'))
+
+
+
+    # 그룹 과제 2 전체리뷰조회화면 추가
+@app.route("/review")
+def view_review():
+    page = request.args.get("page", 0, type=int)
+    per_page=6 # item count to display per page
+    per_row=3# item count to display per row
+    row_count=int(per_page/per_row)
+    start_idx=per_page*page
+    end_idx=per_page*(page+1)
+    data = DB.get_reviews() #read the table
+    item_counts = len(data)
+    data = dict(list(data.items())[start_idx:end_idx])
+    tot_count = len(data)
+    for i in range(row_count):#last row
+        if (i == row_count-1) and (tot_count%per_row != 0):
+            locals()['data_{}'.format(i)] = dict(list(data.items())[i*per_row:])
+        else: 
+            locals()['data_{}'.format(i)] = dict(list(data.items())[i*per_row:(i+1)*per_row])
+    return render_template(
+        "reviews_list.html",
+        datas=data.items(),
+        row1=locals()['data_0'].items(),
+        row2=locals()['data_1'].items(),
+        limit=per_page,
+        page=page,
+        page_count=int((item_counts/per_page)+1),
+        total=item_counts)
+
+# 그룹 과제2 리뷰상세 조회 화면 함수 구현
+
+@app.route("/review-detail/<review_name>")
+def view_review_detail(review_name):
+    review_data = DB.get_review_byname(review_name)
+    if review_data:
+        return render_template("review_detail.html", review=review_data)
+    else:
+        flash("Review not found!")
+        return redirect(url_for('view_list'))
+    
+
 
 
 if __name__ == '__main__':

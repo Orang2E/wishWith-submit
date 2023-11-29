@@ -39,8 +39,6 @@ class DBhandler:
 
         return target_value
 
-    
-
 
     
     def insert_user(self, data, pw):
@@ -76,4 +74,45 @@ class DBhandler:
             if value['id'] == id_ and value['pw'] == pw_:
                 return True
         return False
+    def reg_review(self, data, img_path):
+            review_info ={
+                "name": data['name'],
+                "title": data['title'],
+                "rate": data['rate'],
+                "review": data['review'],
+                "img_path": img_path
+                
+            }
+            self.db.child("review").child(data['name']).set(review_info)
+            return True
+    
+    #그룹 과제2 전체, 상세 리뷰조회 화면 함수 추가 
+    def get_reviews(self):
+        reviews = self.db.child("review").get().val()
+        return reviews
+    
+    def get_review_byname(self, review_name):
+        reviews = self.db.child("review").get()
+        target_review = None
+
+        for res in reviews.each():
+            if res.key() == review_name:
+                target_review = res.val()
+                break
+
+        return target_review
+    
+    def find_user(self, id_, pw_):
+        users = self.db.child("user").get()
+        target_value=[]
+        for res in users.each():
+            value = res.val()
+            if value['id'] == id_ and value['pw'] == pw_:
+                return True
+        return False
+        
+
+    
+
+    
         
