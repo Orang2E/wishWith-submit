@@ -1,260 +1,93 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
     <link
       rel="stylesheet"
       type="text/css"
-      href="../static/css/products_list.css"
+      href="../static/css/product_list.css"
     />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
-  <style>
-    body {
-      margin: 0;
-      padding: 0;
-    }
-    .header {
-      background-color: white;
-      width: 100%;
-      height: 173px;
-      display: flex;
-      align-items: center;
-    }
-    .header img {
-      position: relative;
-      left: 250px;
-    }
-    .banner {
-      background-color: #fffcf0;
-      width: 100%;
-      height: 119px;
-      border: 1px solid #d9d9d9;
-    }
-    .body {
-      width: 100%;
-    }
-    .sort {
-      border-radius: 20px;
-      border: 1px solid var(--mint, #5bab93);
-      background: #fff;
-      display: inline-flex;
-      padding: 10px 20px;
-      justify-content: center;
-      align-items: center;
-      gap: 10px;
-      color: #5bab93;
-      text-align: center;
-      font-family: Pretendard Variable;
-      font-size: 16px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-      position: relative;
-      top: 71px;
-      left: 250px;
-    }
-    .card.container {
-      display: flex;
-      position: relative;
-      width: 80%;
-      margin-left: 10%;
-      align-items: left;
-      flex-direction: row;
-      gap: 30px;
-      padding: 0;
-      margin: 0;
-    }
-    .UIcard {
-      width: 270px;
-      height: 388.98px;
-    }
-    .card.bottom {
-      width: 268px;
-      height: 163.98px;
-      left: 0.16px;
-      top: 268px;
-      padding-top: 10px;
-      padding-bottom: 10px;
-      position: relative;
-      background: white;
-      border-bottom-left-radius: 20px;
-      border-bottom-right-radius: 20px;
-      border: 1px #d9d9d9 solid;
-    }
-
-    #name {
-      color: #00664f;
-      font-family: Pretendard Variable;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400px;
-      line-height: 18px;
-      flex-shrink: 0;
-    }
-    .card.top {
-      width: 268.02px;
-      height: 268.02px;
-      left: 0px;
-      top: 0px;
-      position: absolute;
-      background: #d9d9d9;
-      border-top-left-radius: 20px;
-      border-top-right-radius: 20px;
-      border: 1px #d9d9d9 solid;
-    }
-    .card.textbox {
-      text-align: left;
-      padding-top: 8px;
-      padding-left: 20px;
-      padding-right: 20px;
-      padding-bottom: 20px;
-    }
-    .review.contents {
-      color: #000;
-      font-family: Pretendard Variable;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 400;
-      line-height: 18px;
-      margin-top: 9px;
-    }
-    .line {
-      width: 268px;
-      height: 1px;
-      background-color: #d9d9d9;
-      padding: 0;
-      margin: 0;
-    }
-    .product.name {
-      color: #b9b9b9;
-      text-align: center;
-      font-family: Pretendard Variable;
-      font-size: 14px;
-      font-style: normal;
-      font-weight: 600;
-      line-height: normal;
-      margin-top: 13px;
-    }
-
-    .page.number {
-      position: absolute;
-      top: 2047px;
-      left: 813px;
-      right: 813px;
-      bottom: 426px;
-      display: flex; /* Flexbox 레이아웃 사용 */
-      flex-direction: row; /* 아이템들을 가로로 배치 */
-      justify-content: flex-start; /* 시작점에서 아이템들을 정렬 */
-      flex-wrap: nowrap; /* 화면 크기가 줄어들어도 내용을 다음 줄로 넘기지 않음 */
-    }
-    .page.number a {
-      color: #b9b9b9;
-      text-align: center;
-      font-family: Pretendard Variable;
-      font-size: 14.33px;
-      font-style: normal;
-      font-weight: 700;
-      line-height: normal;
-      margin-right: 35px;
-      text-decoration: none;
-      padding: 5px 10px;
-      border-radius: 10px;
-    }
-    .page.number a:hover {
-      background-color: #5bab93;
-      color: #fffcf0;
-    }
-    .footer {
-      width: 100%;
-      height: 340px;
-      background-color: antiquewhite;
-    }
-  </style>
+  <div id="header"></div>
   <body>
-    <div class="header">
-      <img src="../static/img/위시윗 로고.png" alt="위시윗로고" />
-    </div>
-    <div class="banner"></div>
-    <body>
-      {% if total > 0 %}
-      <p>리뷰 총 {{total}}개</p>
-      <div class="card-line1">
-          {% for row in row_data %}
-        <div class="card-container1">
-          {% for key, value in row %}
-          <div class="container" onclick="location.href='/view_detail/{{key}}/';"
-          style="cursor: pointer" id="cont1-5">
-            <div class="inner-box1">
-              <div class="inner-textbox">
-                <div class="category">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="16"
-                    height="16"
-                    viewBox="0 0 16 16"
-                    fill="none"
-                  >
-                    <circle cx="8" cy="8" r="8" fill="#00664F" />
-                  </svg>
-                  <span id="name">냥냥이</span>
-                </div>
-                </div>
-                <div class="review contents">
-                  요즘 날씨가 추워져서 걱정이 많았는데 벗들과 함께 핫팩 공구해서
-                  걱정이 싹 사라졌네요! ㅋㅋ 다들 감기 조심하세요
-                </div>
-              </div>
-              <div class="progress">
-                <div class="product name">해피데이 포켓형 대용량 핫팩 150g</div>
-              </div>
-            </div>
-            <div class="inner-box2">
-              <img src="/static/img/{{value.img_path}}", width=100%, height=100%>
-              <svg
-                class="heart"
-                width="28"
-                height="24"
-                viewBox="0 0 28 24"
-                fill="none"
+    {% if total > 0 %}
+    <p>상품 총 {{total}}개</p>
+    <div class="card-line1">
+        {% for row in row_data %}
+      <div class="card-container1">
+        {% for key, value in row %}
+        <div class="container" onclick="location.href='/view_review_detail/{{key}}/';"
+        style="cursor: pointer" id="cont1-5">
+          <div class="inner-box1">
+            <div class="inner-textbox">
+              <div class="category">
+                <svg
                 xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 16 16"
+                fill="none"
               >
-                <path
-                  d="M27.0606 7.06297C27.0606 8.66768 26.4521 10.2862 25.2213 11.5174L23.1745 13.5648L14.3649 22.3768C14.3234 22.4183 14.3096 22.4322 14.2681 22.4598C14.2266 22.4322 14.2128 22.4183 14.1713 22.3768L3.31495 11.5174C2.0841 10.2862 1.47559 8.68151 1.47559 7.06297C1.47559 5.44444 2.0841 3.82591 3.31495 2.59472C5.77664 0.146162 9.7596 0.146162 12.2213 2.59472L14.2543 4.64209L16.3011 2.59472C18.7628 0.146162 22.7319 0.146162 25.1936 2.59472C26.4521 3.82591 27.0606 5.43061 27.0606 7.06297Z"
-                  stroke="#E27A6C"
-                  stroke-width="1.5"
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                />
+                <circle cx="8" cy="8" r="8" fill="#00664F" />
               </svg>
+              <span id="name">{{value.name}}</span>
+              </div>
+              <div class="product-name">{{ value.review }}</div>
+            </div>
+            <div class="progress">
+              <div class="progress-text">
+                <div class="dday">{{value.title}}</div>
+      
+                <br />
+              </div>
+                <div>{{value.rate}}점</div>
+
             </div>
           </div>
-          {% endfor %}
+          <div class="inner-box2">
+            <img src="/static/img/{{value.img_path}}", width=100%, height=100%>
+            <svg
+              class="heart"
+              width="28"
+              height="24"
+              viewBox="0 0 28 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M27.0606 7.06297C27.0606 8.66768 26.4521 10.2862 25.2213 11.5174L23.1745 13.5648L14.3649 22.3768C14.3234 22.4183 14.3096 22.4322 14.2681 22.4598C14.2266 22.4322 14.2128 22.4183 14.1713 22.3768L3.31495 11.5174C2.0841 10.2862 1.47559 8.68151 1.47559 7.06297C1.47559 5.44444 2.0841 3.82591 3.31495 2.59472C5.77664 0.146162 9.7596 0.146162 12.2213 2.59472L14.2543 4.64209L16.3011 2.59472C18.7628 0.146162 22.7319 0.146162 25.1936 2.59472C26.4521 3.82591 27.0606 5.43061 27.0606 7.06297Z"
+                stroke="#E27A6C"
+                stroke-width="1.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </div>
         </div>
         {% endfor %}
       </div>
-  
-      <div class="page-wrap">
-          <div class="page-nation">
-              <ul>
-                  <li>
-                  {% for i in range(page_count)%}
-                  <a href="{{url_for('view_list', page=i)}}" color="black">{{i+1}}</a>
-                  {% endfor %} </li>
-              </ul>
-          </div>
-      </div>
-      {% else %}
-      <p>등록된 상품이 없습니다.</p>
-      {% endif %}
-  
-    <script>
-      fetch("/header-before")
-        .then((response) => response.text())
-        .then((data) => {
-          document.getElementById("header").innerHTML = data;
-        });
-    </script>
-  </html>
-  
+      {% endfor %}
+    </div>
+
+    <div class="page-wrap">
+        <div class="page-nation">
+            <ul>
+                <li>
+                {% for i in range(page_count)%}
+                <a href="{{url_for('view_review', page=i)}}" color="black">{{i+1}}</a>
+                {% endfor %} </li>
+            </ul>
+        </div>
+    </div>
+    {% else %}
+    <p>등록된 상품이 없습니다.</p>
+    {% endif %}
+
+  <script>
+    fetch("/header-before")
+      .then((response) => response.text())
+      .then((data) => {
+        document.getElementById("header").innerHTML = data;
+      });
+  </script>
+</html>
