@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../static/css/index.css" />
+    <link rel="stylesheet" href="../static/css/wish_list.css" />
   </head>
 
   <body>
@@ -13,9 +13,47 @@
     <!--배너삽입-->
 
     <div class="textbox">
-      <div class="textline">
-        <div class="text1">마감 임박!</div>
-        <div class="text2">망설이면 늦어요</div>
+      <div class="textline1">
+        <div class="text">전체</div>
+      </div>
+      <div class="textline2">
+        <svg
+          width="10"
+          height="15"
+          viewBox="0 0 10 15"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            d="M4.65426 0.813477L1 4.77584"
+            stroke="#5BAB93"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M4.65424 0.813477L8.30849 4.77584"
+            stroke="#5BAB93"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M4.65426 14.1865L1 10.2241"
+            stroke="#5BAB93"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M4.65424 14.1865L8.30849 10.2241"
+            stroke="#5BAB93"
+            stroke-width="1.5"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+        </svg>
+        <div class="text">최신순</div>
       </div>
     </div>
 
@@ -230,16 +268,6 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="textbox">
-      <div class="textline">
-        <div class="text1">HOT</div>
-        <div class="text2">지금 인기있는 공동 구매</div>
-      </div>
-    </div>
-
-    <div class="container">
       <div class="card1">
         <div class="UIcard">
           <div class="inner-box2">
@@ -450,16 +478,6 @@
           </div>
         </div>
       </div>
-    </div>
-
-    <div class="textbox">
-      <div class="textline">
-        <div class="text1">따끈따끈</div>
-        <div class="text2">방금 올라온 공동 구매</div>
-      </div>
-    </div>
-
-    <div class="container">
       <div class="card1">
         <div class="UIcard">
           <div class="inner-box2">
@@ -674,8 +692,8 @@
 
     <div class="review-background">
       <div class="reviewbox">
-        <div class="textline">
-          <div class="text2">생생한 후기를 구경해보세요</div>
+        <div class="textline3">
+          <div class="text3">생생한 후기를 구경해보세요</div>
         </div>
       </div>
       <div class="review-page-go">리뷰 전체 보기</div>
@@ -822,12 +840,4 @@
     <div class="footer"></div>
     <!--푸터 삽입-->
   </body>
-
-  <script>
-    fetch("/header-before")
-      .then((response) => response.text())
-      .then((data) => {
-        document.getElementById("header").innerHTML = data;
-      });
-  </script>
 </html>

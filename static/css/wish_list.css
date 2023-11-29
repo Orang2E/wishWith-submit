@@ -24,7 +24,6 @@ body {
 .textbox {
   display: flex;
   flex-direction: row;
-  justify-content: center;
   flex-wrap: wrap;
   width: 80%;
   margin: auto;
@@ -41,7 +40,27 @@ body {
   margin-top: 40px;
   margin-bottom: 20px;
 }
-.textline {
+.textline1,
+.textline2 {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  background: white;
+  border-radius: 20px;
+  border: 1px #5bab93 solid;
+  align-items: center;
+  gap: 10px;
+  position: relative;
+  white-space: nowrap;
+}
+.textline1 {
+  margin-right: 20px;
+}
+.textline3 {
   display: inline-flex;
   flex-direction: row;
   justify-content: center;
@@ -57,14 +76,14 @@ body {
   position: relative;
   white-space: nowrap;
 }
-.text1 {
-  color: #e27a6c;
+.text {
+  color: #5bab93;
   font-size: 16px;
   font-family: Pretendard Variable;
   font-weight: 600;
   word-wrap: break-word;
 }
-.text2 {
+.text3 {
   color: black;
   font-size: 16px;
   font-family: Pretendard Variable;
@@ -97,19 +116,10 @@ body {
 .card1,
 .card2,
 .card3,
-.card4 {
-  display: flex;
-  margin-right: 20px;
-  margin-bottom: 20px;
-  position: relative;
-  width: 270px;
-  height: 431px;
-  padding: 0;
-  flex: 0 1 auto;
-}
-
+.card4,
 .card5 {
   display: flex;
+  margin-right: 20px;
   margin-bottom: 20px;
   position: relative;
   width: 270px;
