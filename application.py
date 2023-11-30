@@ -40,7 +40,8 @@ def registerproduct():
     print(request.form)  # 확인용 출력
     print(request.files)  # 확인용 출력
     image_file = request.files["img_path"]
-    image_file.save("static/img/{}".format(image_file.filename))
+    storage_path = "img/" + image_file.filename
+    storage.child(storage_path).put(image_file)
     data = {
         "product_description": request.form.get("product-description"),
         "product_place": request.form.get("product-place"),
@@ -51,7 +52,8 @@ def registerproduct():
         "img_path": "static/img/" + image_file.filename
     }
     DB.insert_item(data['product_category'], data, image_file.filename)
-    return render_template("product_list.html", data={ "img_path": "static/img/" + image_file.filename, **data })
+    return redirect(url_for('products-list'))
+
 
 
 @app.route("/products-list")
