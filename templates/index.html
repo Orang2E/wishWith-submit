@@ -4,10 +4,8 @@
     <link rel="stylesheet" type="text/css" href="../static/css/index.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
-  <div id="header"></div>
   <body>
-    <!--헤더 삽입-->
-
+    {% extends "layout/header.html" %} {% block contents %}
     <div class="text-box1">
       <div class="text1-1">마감 임박!</div>
       <div class="text1-2">망설이면 늦어요</div>
@@ -239,13 +237,7 @@
         </div>
       </div>
     </div>
+    {% endblock%}
   </body>
   <!--<footer id="footer"></footer>-->
-  <script>
-    fetch("/header-before")
-      .then((response) => response.text())
-      .then((data) => {
-        document.getElementById("header").innerHTML = data;
-      });
-  </script>
 </html>

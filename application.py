@@ -30,18 +30,17 @@ def productAdd():
 
 @app.route("/header-before")
 def headerBefore():
-    return render_template('layout/header_before.html')
+    return render_template('layout/header.html')
 @app.route("/header-after")
 def headerAfter():
-    return render_template('layout/header_after.html')
+    return render_template('layout/header.html')
 
 @app.route("/add-product-post", methods=["POST"])
 def registerproduct():
     print(request.form)  # 확인용 출력
     print(request.files)  # 확인용 출력
     image_file = request.files["img_path"]
-    storage_path = "img/" + image_file.filename
-    storage.child(storage_path).put(image_file)
+    image_file.save("static/img/{}".format(image_file.filename))
     data = {
         "product_description": request.form.get("product-description"),
         "product_place": request.form.get("product-place"),
@@ -52,7 +51,7 @@ def registerproduct():
         "img_path": "static/img/" + image_file.filename
     }
     DB.insert_item(data['product_category'], data, image_file.filename)
-    return redirect(url_for('products-list'))
+    return render_template("product_list.html", data={ "img_path": "static/img/" + image_file.filename, **data })
 
 
 @app.route("/products-list")
@@ -73,6 +72,10 @@ def view_list():
 
     return render_template("product_list.html", row_data=row_data, limit=per_page,page=page, page_count=int((item_counts/per_page)+1),total=item_counts)
 
+@app.route("/parti-product")
+def partiProduct():
+    return render_template("parti_product.html")
+
 
 @app.route("/view_detail/<name>/")
 def view_item_detail(name):
@@ -85,9 +88,9 @@ def productDetail():
     return render_template('product_detail.html')
 
 
-
-
-
+@app.route("/my-review")
+def myReview():
+    return render_template('my_review.html')
 
 
 @app.route("/review-add") 

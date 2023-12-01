@@ -3,33 +3,43 @@
     <link rel="stylesheet" href="/static/css/review_add.css">
 </head>
 <body>
+    {% extends "layout/header_only.html" %} {% block contents %}
+    <div class="banner"></div>
+
 <form class="mb-3" name="myform" id="myform" method="post" action="/reg_review" enctype="multipart/form-data">
+<span class="back-arrow"><a href="{{ url_for('mypage') }}" target="_self">&larr;</a></span>
 <div class="submit-section">
     <button id="button1">임시저장</button>
-
-      <input type="submit" id="button2" value="등록하기">
+    <input type="submit" id="button2" value="등록하기">
 </div>
-
 <p id="title1">리뷰 작성하기</p>
-<div style="display:flex; flex-direction: column;">
-<div class = "tabs">
-<div class = "tab">기본정보</div> 
-<div class = "tab">상품정보</div> 
-<div class = "tab">공지사항</div>
+
+<div class="navbar">
+    <nav>
+    <ul>
+        <li class="selected"><a href="#">기본정보</a></li>
+        <li><a href="#">상품정보</a></li>
+        <li><a href="#">상품정보</a></li>
+        <li><a href="#">공지사항</a></li>
+    </ul>
+    </nav>
 </div>
-
+<div class="input-review">
 <div class="form-section">
-    
-    상품:    <input type="text" name="name" id="name" value="{{name}}"><br><br>
-    리뷰 제목: <input type="text" name="title" id="title" value=""><br><br>
-    
-
-    <label for="review-content">리뷰 작성</label>
+<div class="product">상품명:<input type="text" name="name" id="name" value="{{name}}">
+    <br>
+</div>
+<div class="review-title">리뷰 제목: <input type="text" name="title" id="title" value=""><br>
+</div>
+<div class="review-content">
+    <div>
+    리뷰 작성
     <p>공동 구매에 대한 리뷰를 작성해주세요.<br>작성해주신 리뷰는 리뷰 조회 페이지에 노출됩니다.</p>
-    <textarea class="col-auto form-control" type="text" name="reviewContents"
+    </div>
+    <textarea class="col-auto form-control" id="review-content" type="text" name="reviewContents"
  placeholder="리뷰를 남겨주세요 감사합니다!"></textarea>
-    
-         <fieldset>
+</div>
+ <div class="star">
  <span class="text-bold">별점을 선택해주세요</span>
  <input type="radio" name="reviewStar" value="5" id="rate1"><label
  for="rate1">★</label>
@@ -41,13 +51,15 @@
  for="rate4">★★★★</label>
  <input type="radio" name="reviewStar" value="1" id="rate5"><label
  for="rate5">★★★★★</label>
- </fieldset>
-     리뷰이미지를 업로드해주세요
-    
- <input type="file" id="img_path" name="img_path" accept="image/*"><br><br>
-    
+</div>
+<div class="review-image">
+    리뷰이미지를 업로드해주세요
+<input type="file" id="img_path" name="img_path" accept="image/*"><br><br>
 </div>
 </div>
-<image id="backicon" src="../static/img/Group 45.png">
+</div>
+
+    
+    {% endblock %}
 </body>
- </form>    
+</form>    

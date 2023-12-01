@@ -4,6 +4,7 @@
     <link rel="stylesheet" type="text/css" href="../../static/css/header.css" />
   </head>
   <body>
+    {% block header %}
     <div class="header">
       <a href="{{url_for('index')}}" target="_self" id="logo"
         ><img
@@ -25,10 +26,12 @@
         <a href="/logout" target="_self" id="login-btn">로그아웃</a>
       </div>
       {% else %}
-      <!-- 로그아웃 상태일 때 보여질 내용 -->
-      <a href="{{ url_for('login') }}" target="_self" id="login-btn"
-        >로그인/회원가입</a
-      >
+      <div class="myInfo">
+        <!-- 로그아웃 상태일 때 보여질 내용 -->
+        <a href="{{ url_for('login') }}" target="_self" id="login-btn"
+          >로그인/회원가입</a
+        >
+      </div>
       {% endif %}
     </div>
     <div class="nav">
@@ -40,5 +43,6 @@
       <a href="{{url_for('view_list')}}" target="_self" id="nav6">이화굿즈</a>
       <a href="{{url_for('view_list')}}" target="_self" id="nav7">기타</a>
     </div>
+    {% endblock%} {% block contents %}{% endblock %}
   </body>
 </html>
