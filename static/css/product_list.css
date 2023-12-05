@@ -5,6 +5,13 @@ body {
   width: 100%;
   background: white;
 }
+.banner {
+  background-color: #fffcf0;
+  width: 100%;
+  height: 380px;
+  border: 1px solid #d9d9d9;
+  margin-bottom: 80px;
+}
 p {
   text-align: left;
   padding-left: 200px;
