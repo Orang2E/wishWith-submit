@@ -1,26 +1,44 @@
+@font-face {
+  font-family: 'Pretendard-SemiBold';
+  font-weight: 600;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-SemiBold.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-SemiBold.eot?#iefix')
+      format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-SemiBold.woff2')
+      format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-SemiBold.woff')
+      format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-SemiBold.ttf')
+      format('truetype');
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Pretendard-Bold';
+  font-weight: 700;
+  font-style: normal;
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.eot');
+  src: url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.eot?#iefix')
+      format('embedded-opentype'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.woff2')
+      format('woff2'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.woff')
+      format('woff'),
+    url('https://cdn.jsdelivr.net/gh/webfontworld/pretendard/Pretendard-Bold.ttf')
+      format('truetype');
+  font-display: swap;
+}
+
 html {
-  width: 1878px;
-  height: 100vh;
-  margin: 50px auto;
+  margin: 0 auto;
+  overflow-x: hidden;
 }
 body {
   margin: 0;
   padding: 0;
-  width: 1878px;
-  height: 100vh;
-  margin: 0 auto;
 }
-.header {
-  background-color: white;
-  width: 100%;
-  height: 173px;
-  display: flex;
-  align-items: center;
-}
-.header img {
-  position: relative;
-  left: 250px;
-}
+
 .banner {
   background-color: #fffcf0;
   width: 100%;
@@ -35,8 +53,10 @@ body {
 }
 .body.middle {
   display: flex;
-  width: 100%;
-  background-color: FFF;
+  flex-direction: column;
+  width: 1530px;
+  justify-content: center;
+  padding-left: 150px;
 }
 .user {
   margin-top: 50px;
@@ -44,7 +64,7 @@ body {
 }
 
 .userImg {
-  margin-left: 220px;
+  margin-left: 100px;
 }
 
 #name {
@@ -87,7 +107,7 @@ body {
   font-weight: 600;
   line-height: normal;
   position: relative;
-  right: -800px;
+  right: -600px;
 }
 
 .selected a {
@@ -99,7 +119,7 @@ ul {
   bottom: -55px;
   list-style-type: none;
   margin-top: 30px;
-  margin-left: 200px;
+  margin-left: 50px;
 }
 li {
   float: left;
@@ -123,10 +143,9 @@ li a:hover {
 .container {
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start;
   flex-wrap: wrap;
-  margin: 50px auto;
-  width: 990px;
+  gap: 30px;
 }
 
 .UIcard {
@@ -213,7 +232,6 @@ li a:hover {
   flex-direction: row; /* 아이템들을 가로로 배치 */
   justify-content: center;
   flex-wrap: nowrap; /* 화면 크기가 줄어들어도 내용을 다음 줄로 넘기지 않음 */
-  margin-top: 70px;
 }
 .page.number a {
   color: #b9b9b9;

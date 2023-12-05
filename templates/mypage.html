@@ -11,7 +11,7 @@
     />
   </head>
   <body>  
-    {% extends "layout/header_only.html" %} {% block contents %}
+    <div id="header"></div>
     <div class="banner"></div>
     </div>
     <div class="body">
@@ -29,7 +29,7 @@
             <li class="selected"><a href="{{ url_for('mypage') }}" target="_self">마이 공구</a></li>
             <li><a href="{{ url_for('myReview') }}" target="_self">마이 후기</a></li>
             <li><a href="{{ url_for('partiProduct') }}" target="_self">참여한 공구</a></li>
-            <li><a href="#">작성한 리뷰</a></li>
+            <li><a href="{{ url_for('writtenReview') }}">작성한 리뷰</a></li>
           </ul>
         </nav>
         <span class="reviewMaking">
@@ -264,7 +264,19 @@
         </div>
       </div>
     </div>
-    <div class="footer"></div>
-    {% endblock %}
+    <div id="footer"></div>
   </body>
 </html>
+<script>
+fetch('/header-only')
+    .then((response) => response.text())
+    .then((data) => {
+      document.getElementById('header').innerHTML = data;
+    });
+
+fetch('/footer')
+.then((response) => response.text())
+.then((data) => {
+  document.getElementById('footer').innerHTML = data;
+});
+</script>

@@ -11,27 +11,63 @@
     />
   </head>
   <body>
-    <div class="header">
-      <img src="../media/위시윗 로고.png" alt="위시윗로고" />
-    </div>
+    <div id="header"></div>
     <div class="banner"></div>
     <div class="body">
       <span class="sort">
-        <img src="../media/Group.png" alt="sorting img" /> 최신순
+        <img src="../static/img/Group.png" alt="sorting img" /> 최신순
       </span>
       <div class="container">
-        <div id="card1">
+        <div id="myModal" class="modal">
+          <div class="modal-content">
+            <div class="close">&times;</div>
+            <div class="UIcard">
+              <div class="card bottom">
+                <div class="card textbox">
+                  <div class="text">
+                    <div class="nickname box">
+                      <span class="nickname img"></span>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 16 16"
+                        fill="none"
+                      >
+                        <circle cx="8" cy="8" r="8" fill="#00664F" />
+                      </svg>
+                      <span id="name">냥냥이</span>
+                    </div>
+                    <div class="review contents">
+                      요즘 날씨가 추워져서 걱정이 많았는데 벗들과 함께 핫팩
+                      공구해서 걱정이 싹 사라졌네요! ㅋㅋ 다들 감기 조심하세요
+                    </div>
+                  </div>
+                </div>
+                <div class="line"></div>
+                <div class="product name">해피데이 포켓형 대용량 핫팩 150g</div>
+              </div>
+              <div class="card top"></div>
+            </div>
+            <div id="modlBody"></div>
+          </div>
+        </div>
+        <div class="UImodal" onClick="showModal(this)">
           <div class="UIcard">
             <div class="card bottom">
               <div class="card textbox">
                 <div class="text">
                   <div class="nickname box">
                     <span class="nickname img"></span>
-                    <img
-                      class="userImg"
-                      src="../media/Ellipse 2.png"
-                      alt="userImg"
-                    />
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="16"
+                      height="16"
+                      viewBox="0 0 16 16"
+                      fill="none"
+                    >
+                      <circle cx="8" cy="8" r="8" fill="#00664F" />
+                    </svg>
                     <span id="name">냥냥이</span>
                   </div>
                   <div class="review contents">
@@ -436,36 +472,6 @@
             <div class="card top"></div>
           </div>
         </div>
-        <div id="card15">
-          <div class="UIcard">
-            <div class="card bottom">
-              <div class="card textbox">
-                <div class="text">
-                  <div class="nickname box">
-                    <span class="nickname img"></span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <circle cx="8" cy="8" r="8" fill="#00664F" />
-                    </svg>
-                    <span id="name">냥냥이</span>
-                  </div>
-                  <div class="review contents">
-                    요즘 날씨가 추워져서 걱정이 많았는데 벗들과 함께 핫팩
-                    공구해서 걱정이 싹 사라졌네요! ㅋㅋ 다들 감기 조심하세요
-                  </div>
-                </div>
-              </div>
-              <div class="line"></div>
-              <div class="product name">해피데이 포켓형 대용량 핫팩 150g</div>
-            </div>
-            <div class="card top"></div>
-          </div>
-        </div>
       </div>
       <div class="page number">
         <div><a href="#">1</a></div>
@@ -477,6 +483,43 @@
         <div><a href="#">7</a></div>
       </div>
     </div>
-    <div class="footer"></div>
+    <div id="footer"></div>
   </body>
 </html>
+<script>
+  fetch('/header-only')
+    .then((response) => response.text())
+    .then((data) => {
+      document.getElementById('header').innerHTML = data;
+    });
+
+  fetch('/footer')
+    .then((response) => response.text())
+    .then((data) => {
+      document.getElementById('footer').innerHTML = data;
+    });
+
+  var modal = document.getElementById('myModal');
+  var modalText = document.getElementById('modalBody');
+
+  // 모달 창을 여는 함수
+  function showModal(card) {
+    var text = card.textContent || card.innerText; // 카드의 텍스트를 가져옵니다
+    modal.style.display = 'block'; // 모달 창을 표시합니다
+  }
+
+  // 모달 창의 닫기 버튼
+  var span = document.getElementsByClassName('close')[0];
+
+  // 닫기 버튼 클릭 시 모달 창 닫기
+  span.onclick = function () {
+    modal.style.display = 'none';
+  };
+
+  // 모달 창 바깥을 클릭하면 닫히도록
+  window.onclick = function (event) {
+    if (event.target == modal) {
+      modal.style.display = 'none';
+    }
+  };
+</script>

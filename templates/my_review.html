@@ -7,12 +7,11 @@
     <link
       rel="stylesheet"
       type="text/css"
-      href="../static/css/mypage.css"
+      href="../static/css/my_review.css"
     />
   </head>
   <body>
-    {% extends "layout/header_only.html" %}
-    {% block contents %}
+    <div id="header"></div>
     <div class="banner"></div>
     <div class="body">
       <div class="body top">
@@ -29,7 +28,7 @@
             <li><a href="{{ url_for('mypage') }}" target="_self">마이 공구</a></li>
             <li class="selected"><a href="{{ url_for('myReview') }}" target="_self">마이 후기</a></li>
             <li><a href="{{ url_for('partiProduct') }}" target="_self">참여한 공구</a></li>
-            <li><a href="#">작성한 리뷰</a></li>
+            <li><a href="{{ url_for('writtenReview') }}">작성한 리뷰</a></li>
           </ul>
         </nav>
         <span class="reviewMaking">
@@ -248,15 +247,27 @@
             <div class="card top"></div>
           </div>
         </div>
+      </div>
         <div class="page number">
           <div><a href="#">1</a></div>
           <div><a href="#">2</a></div>
           <div><a href="#">3</a></div>
           <div><a href="#">4</a></div>
-        </div>
       </div>
     </div>
-    <div class="footer"></div>
-    {% endblock %}
+    <div id="footer"></div>
   </body>
 </html>
+<script>
+  fetch('/header-only')
+      .then((response) => response.text())
+      .then((data) => {
+        document.getElementById('header').innerHTML = data;
+      });
+  
+  fetch('/footer')
+  .then((response) => response.text())
+  .then((data) => {
+    document.getElementById('footer').innerHTML = data;
+  });
+  </script>

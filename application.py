@@ -28,12 +28,15 @@ def login():
 def productAdd():
     return render_template('product_add.html')
 
-@app.route("/header-before")
+@app.route("/header")
 def headerBefore():
     return render_template('layout/header.html')
-@app.route("/header-after")
+@app.route("/header-only")
 def headerAfter():
-    return render_template('layout/header.html')
+    return render_template('layout/header_only.html')
+@app.route("/footer")
+def footerEnter():
+    return render_template('layout/footer.html')
 
 @app.route("/add-product-post", methods=["POST"])
 def registerproduct():
@@ -76,6 +79,10 @@ def view_list():
 def partiProduct():
     return render_template("parti_product.html")
 
+@app.route("/written-review")
+def writtenReview():
+    return render_template("written_review.html")
+
 
 @app.route("/view_detail/<name>/")
 def view_item_detail(name):
@@ -103,7 +110,7 @@ def reviewDetail():
 
 @app.route("/reviews-list")
 def reviewList():
-    return render_template('reviews_list.html')
+    return render_template('all_review_check.html')
 
 @app.route("/signup1")
 def signup1():
@@ -186,7 +193,7 @@ def view_review():
     tot_count = len(data)
     row_data = [list(data.items())[i * per_row:(i + 1) * per_row] for i in range(per_page // per_row)]
     return render_template(
-        "reviews_list.html",
+        "all_review_check.html",
         row_data=row_data, limit=per_page,page=page, page_count=int((item_counts/per_page)+1),total=item_counts)
 
 # 그룹 과제2 리뷰상세 조회 화면 함수 구현
