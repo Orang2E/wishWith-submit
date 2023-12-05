@@ -1,18 +1,10 @@
 html {
   margin: 0 auto;
-  overflow-x: hidden;
+  /*overflow-x: hidden;*/
 }
 body {
   margin: 0;
   padding: 0;
-}
-
-* header {
-  background-color: white;
-  width: 100%;
-  height: 173px;
-  display: flex;
-  align-items: left;
 }
 .banner {
   background-color: #fffcf0;
