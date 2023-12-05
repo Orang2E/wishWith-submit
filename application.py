@@ -28,9 +28,9 @@ def login():
 def productAdd():
     return render_template('product_add.html')
 
-@app.route("/header-before")
+@app.route("/header")
 def headerBefore():
-    return render_template('layout/header_before.html')
+    return render_template('layout/header.html')
 @app.route("/header-after")
 def headerAfter():
     return render_template('layout/header_after.html')

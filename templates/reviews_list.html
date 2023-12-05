@@ -84,7 +84,7 @@
     {% endif %}
 
   <script>
-    fetch("/header-before")
+    fetch("/header")
       .then((response) => response.text())
       .then((data) => {
         document.getElementById("header").innerHTML = data;
