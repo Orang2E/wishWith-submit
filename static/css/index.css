@@ -1,17 +1,51 @@
 html {
-  position: relative;
+  margin: 0 auto;
+  overflow-x: hidden;
 }
 body {
-  width: 100vw;
   margin: 0;
-  background: white;
+  padding: 0;
 }
-.text-box1,
-.text-box2,
-.text-box3,
-.text-box4 {
-  left: 50%;
-  transform: translateX(-55%);
+
+* header {
+  background-color: white;
+  width: 100%;
+  height: 173px;
+  display: flex;
+  align-items: left;
+}
+.banner {
+  background-color: #fffcf0;
+  width: 100%;
+  height: 380px;
+  border: 1px solid #d9d9d9;
+  margin-bottom: 80px;
+}
+
+.textbox {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: auto;
+  margin-top: 60px;
+  margin-bottom: 40px;
+}
+.reviewbox {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.textline {
+  display: inline-flex;
+  flex-direction: row;
+  justify-content: center;
   padding-left: 20px;
   padding-right: 20px;
   padding-top: 10px;
@@ -19,130 +53,100 @@ body {
   background: white;
   border-radius: 20px;
   border: 1px #e27a6c solid;
-  justify-content: center;
   align-items: center;
   gap: 10px;
-  display: inline-flex;
-  position: absolute;
+  position: relative;
   white-space: nowrap;
 }
-.text-box1 {
-  top: 634px;
-}
-.text-box2 {
-  top: 1208px;
-}
-.text-box3 {
-  top: 1787px;
-}
-.text-box4 {
-  top: 50px;
-}
-.review-page-go {
-  top: 110px;
-  left: 50%;
-  transform: translateX(-55%);
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  white-space: nowrap;
-  font-family: Pretendard Variable;
-  font-weight: 500;
-}
-.text1-1,
-.text2-1,
-.text3-1 {
+.text1 {
   color: #e27a6c;
   font-size: 16px;
   font-family: Pretendard Variable;
   font-weight: 600;
   word-wrap: break-word;
 }
-.text1-2,
-.text2-2,
-.text3-2,
-.text4-1 {
+.text2 {
   color: black;
   font-size: 16px;
   font-family: Pretendard Variable;
   font-weight: 600;
   word-wrap: break-word;
 }
-.review-box {
-  margin: 0px;
-  width: 100%;
-  top: 2432px;
-  height: 646px;
-  background: rgb(255, 252, 240, 1);
-  position: absolute;
-}
-.footer {
-  display: flex;
-  position: fixed;
-  bottom: 0;
-}
-.card-line1,
-.card-line2,
-.card-line3,
-.card-line4 {
-  position: absolute;
-  display: flex;
-  flex-direction: row;
-}
-.card-line1 {
-  top: 706px;
-}
-.card-line2 {
-  top: 1280px;
-}
-.card-line3 {
-  top: 1860px;
-}
-.card-line4 {
-  top: 160px;
-}
-.card-container1,
-.card-container2,
-.card-container3,
-.card-container4 {
-  width: 100%;
-  height: 100%;
-  align-items: center;
-  display: flex;
-  flex-direction: row;
-  gap: 30px;
-  margin-left: 150px;
-  position: realtive;
-}
+
 .container {
   display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: auto;
+}
+
+@media (min-width: 1450px) {
+  /* 너비가 1200px 이하일 때 */
+  .container {
+    width: 1500px;
+  }
+}
+@media (max-width: 1450px) {
+  /* 너비가 1200px 이하일 때 */
+  .container {
+    width: 1150px;
+  }
+}
+@media (max-width: 1135px) {
+  /* 너비가 1200px 이하일 때 */
+  .textbox {
+    margin: 0;
+    margin-top: 60px;
+    margin-bottom: 40px;
+  }
+}
+
+.card1,
+.card2,
+.card3,
+.card4 {
+  display: flex;
+  margin-right: 20px;
+  margin-bottom: 20px;
   position: relative;
   width: 270px;
-  height: 432.02px;
+  height: 431px;
+  padding: 0;
+  flex: 0 1 auto;
 }
+
+.card5 {
+  display: flex;
+  margin-bottom: 20px;
+  position: relative;
+  width: 270px;
+  height: 431px;
+  padding: 0;
+  flex: 0 1 auto;
+}
+
 .inner-box1 {
   width: 268px;
   height: 140px;
-  left: 0.16px;
-  top: 268px;
   padding-top: 10px;
   padding-bottom: 10px;
-  position: absolute;
+  position: relative;
   background: white;
   border-bottom-left-radius: 20px;
   border-bottom-right-radius: 20px;
   border: 1px #d9d9d9 solid;
+  z-index: 1;
 }
 .inner-box2 {
   width: 268.02px;
   height: 268.02px;
-  left: 0px;
-  top: 0px;
-  position: absolute;
   background: #d9d9d9;
   border-top-left-radius: 20px;
   border-top-right-radius: 20px;
   border: 1px #d9d9d9 solid;
+  z-index: 2;
 }
 .inner-textbox {
   text-align: left;
@@ -224,64 +228,50 @@ body {
   position: absolute;
   background: #d9d9d9;
   border-radius: 5.97px;
-  overflow: hidden; /* 클리핑 추가 */
+  overflow: hidden;
 }
 .progress-bar {
-  height: 100%; /* 높이 100%로 설정 */
+  height: 100%;
   position: relative;
   background: #00664f;
   border-radius: 5.97px;
-  transition: width 0.5s ease; /* 움직임 효과 추가 */
+  transition: width 0.5s ease;
 }
-.UIcard {
-  margin-top: 60px;
+.heart {
   position: relative;
-  width: 270px;
-  height: 388.98px;
-  padding: 0;
-  margin: 0;
+  margin: 10px;
 }
-.card.bottom {
-  width: 268px;
-  height: 145.98px;
-  left: 0.16px;
-  top: 268px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  position: absolute;
-  background: white;
-  border-bottom-left-radius: 20px;
-  border-bottom-right-radius: 20px;
-  border: 1px #d9d9d9 solid;
+
+.review-background {
+  margin-top: 80px;
+  padding-top: 20px;
+  width: 100%;
+  background-color: rgb(255, 252, 240, 1);
+  position: relative;
 }
-#name {
+.review-page-go {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  flex-wrap: wrap;
+  width: 80%;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 40px;
+  white-space: nowrap;
+  font-family: Pretendard Variable;
+  font-weight: 500;
+  color: #e27a6c;
+}
+.nicknamebox {
   color: #00664f;
   font-family: Pretendard Variable;
   font-size: 14px;
   font-style: normal;
-  font-weight: 400px;
+  font-weight: 500;
   line-height: 18px;
-  flex-shrink: 0;
 }
-.card.top {
-  width: 268.02px;
-  height: 268.02px;
-  left: 0px;
-  top: 0px;
-  position: absolute;
-  background: #d9d9d9;
-  border-top-left-radius: 20px;
-  border-top-right-radius: 20px;
-  border: 1px #d9d9d9 solid;
-}
-.card.textbox {
-  text-align: left;
-  padding-top: 8px;
-  padding-left: 20px;
-  padding-right: 20px;
-  padding-bottom: 20px;
-}
-.review.contents {
+.review-contents {
   color: #000;
   font-family: Pretendard Variable;
   font-size: 14px;
@@ -297,7 +287,7 @@ body {
   padding: 0;
   margin: 0;
 }
-.product.name {
+.review-product {
   color: #b9b9b9;
   text-align: center;
   font-family: Pretendard Variable;
@@ -305,11 +295,5 @@ body {
   font-style: normal;
   font-weight: 600;
   line-height: normal;
-  margin-top: 13px;
-}
-.heart {
-  position: absolute;
-  right: 0;
-  bottom: 0;
-  margin: 10px;
+  margin-top: 12px;
 }

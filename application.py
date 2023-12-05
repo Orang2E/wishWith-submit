@@ -34,6 +34,9 @@ def headerBefore():
 @app.route("/header-after")
 def headerAfter():
     return render_template('layout/header_after.html')
+@app.route("/footer")
+def footerEnter():
+    return render_template('layout/footer.html')
 
 @app.route("/add-product-post", methods=["POST"])
 def registerproduct():
