@@ -20,10 +20,6 @@ def mypage():
 def login():
     return render_template('login.html')
 
-
-
-
-
 @app.route("/product-add") 
 def productAdd():
     return render_template('product_add.html')
@@ -76,6 +72,24 @@ def view_list():
     row_data = [list(data.items())[i * per_row:(i + 1) * per_row] for i in range(per_page // per_row)]
 
     return render_template("product_list.html", row_data=row_data, limit=per_page,page=page, page_count=int((item_counts/per_page)+1),total=item_counts)
+
+@app.route("/wishlist")
+def wishlist():
+    page = request.args.get("page", 0, type=int)
+    per_page = 10  # item count to display per page
+    per_row = 5  # item count to display per row   
+    start_idx = per_page * page
+    end_idx = per_page * (page + 1)
+   
+    data = DB.get_items()  # read the table
+    
+    item_counts = len(data)
+    data = dict(list(data.items())[start_idx:end_idx])
+    tot_count = len(data)
+    
+    row_data = [list(data.items())[i * per_row:(i + 1) * per_row] for i in range(per_page // per_row)]
+
+    return render_template("wish_list.html", row_data=row_data, limit=per_page, page=page, page_count=int((item_counts / per_page) + 1), total=item_counts)
 
 
 @app.route("/view_detail/<name>/")
