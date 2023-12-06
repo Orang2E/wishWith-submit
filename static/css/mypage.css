@@ -264,6 +264,7 @@ li a:hover {
   justify-content: center;
   flex-wrap: nowrap; /* 화면 크기가 줄어들어도 내용을 다음 줄로 넘기지 않음 */
   margin-top: 70px;
+  margin-left: 315px;
 }
 .page.number a {
   color: #b9b9b9;

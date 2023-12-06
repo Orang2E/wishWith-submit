@@ -56,7 +56,6 @@ body {
   flex-direction: column;
   width: 1530px;
   justify-content: center;
-  padding-left: 150px;
 }
 .user {
   margin-top: 50px;
@@ -145,6 +144,7 @@ li a:hover {
   flex-direction: row;
   justify-content: flex-start;
   flex-wrap: wrap;
+  padding-left: 160px;
   gap: 30px;
 }
 

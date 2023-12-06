@@ -75,7 +75,7 @@ def view_list():
 
     return render_template("product_list.html", row_data=row_data, limit=per_page,page=page, page_count=int((item_counts/per_page)+1),total=item_counts)
 
-@app.route("/parti-product")
+@app.route("/parti-product") 
 def partiProduct():
     return render_template("parti_product.html")
 

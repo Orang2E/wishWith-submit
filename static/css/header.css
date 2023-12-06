@@ -57,6 +57,8 @@ body {
 }
 .header {
   display: flex;
+  justify-content: space-between;
+  padding: 0 50px;
   margin-bottom: 50px;
 }
 #logo {

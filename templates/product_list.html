@@ -9,9 +9,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
   </head>
   <div id="header"></div>
+     <div class="banner"></div>
   <body>
     {% if total > 0 %}
-    <p>상품 총 {{total}}개</p>
     <div class="card-line1">
         {% for row in row_data %}
       <div class="card-container1">
@@ -39,7 +39,7 @@
             </div>
           </div>
           <div class="inner-box2">
-            <img src="/static/img/{{value.img_path}}", width=100%, height=100%>
+            <img src="/static/img/{{value.img_path}}" style="width: 100%; height: 100%; border-top-left-radius: 20px; border-top-right-radius: 20px;">
             <svg
               class="heart"
               width="28"
@@ -76,17 +76,17 @@
     {% else %}
     <p>등록된 상품이 없습니다.</p>
     {% endif %}
-
+<div id="footer"></div>
   <script>
-    fetch("/header-before")
+    fetch("/header")
       .then((response) => response.text())
       .then((data) => {
         document.getElementById("header").innerHTML = data;
       });
-      fetch("/footer")
-      .then((response) => response.text())
-      .then((data) => {
-        document.getElementById("footer").innerHTML = data;
-      });
+    fetch("/footer")
+    .then((response) => response.text())
+    .then((data) => {
+      document.getElementById("footer").innerHTML = data;
+    });
   </script>
 </html>
