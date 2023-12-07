@@ -40,7 +40,8 @@
     </div>
     <a href="login" target="_self" id="login">로그인</a>
     <a href="signup1" target="_self" id="signup">회원가입</a>
-    <form method="post" action="/signup1_post">
+
+    <form method="post" action="/signup1_post" id="signup1-form">
       <label for="name" id="name">이름</label>
       <input type="text" name="name" placeholder="enter your name" />
       <hr />
@@ -62,6 +63,7 @@
       <label for="password2" id="password2">비밀번호 확인</label>
       <input type="text" name="password2" placeholder="enter your PW again" />
       <hr />
+      <!--
       <div class="stepcircle">
         <div id="circle1">
           <svg
@@ -86,7 +88,8 @@
           </svg>
         </div>
       </div>
-      <input type="submit" value="생성" />
+      -->
+      <input type="submit" value="회원가입" />
     </form>
   </body>
 </html>
