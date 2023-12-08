@@ -1,6 +1,9 @@
 from flask import Flask, render_template , url_for, request, redirect , flash, session, jsonify
 from database import DBhandler
 import hashlib
+from bs4 import BeautifulSoup
+import requests
+
 
 
 app = Flask(__name__)
@@ -35,24 +38,24 @@ def headerBefore():
 def headerAfter():
     return render_template('layout/header_after.html')
 
-@app.route("/add-product-post", methods=["POST"])
-def registerproduct():
-    print(request.form)  # 확인용 출력
-    print(request.files)  # 확인용 출력
-    image_file = request.files["img_path"]
-    storage_path = "img/" + image_file.filename
-    storage.child(storage_path).put(image_file)
-    data = {
-        "product_description": request.form.get("product-description"),
-        "product_place": request.form.get("product-place"),
-        "product_number": request.form.get("product-number"),
-        "product_category": request.form.get("product-category"),
-        "start_date": request.form.get("start-date"),
-        "end_date": request.form.get("end-date"),
-        "img_path": "static/img/" + image_file.filename
-    }
-    DB.insert_item(data['product_category'], data, image_file.filename)
-    return redirect(url_for('products-list'))
+#@app.route("/add-product-post", methods=["POST"])
+#def registerproduct():
+    #print(request.form)  # 확인용 출력
+    #print(request.files)  # 확인용 출력
+    #image_file = request.files["img_path"]
+    #storage_path = "img/" + image_file.filename
+    #storage.child(storage_path).put(image_file)
+    #data = {
+      #  "product_description": request.form.get("product-description"),
+      #  "product_place": request.form.get("product-place"),
+      #  "product_number": request.form.get("product-number"),
+      #  "product_category": request.form.get("product-category"),
+      #  "start_date": request.form.get("start-date"),
+      #  "end_date": request.form.get("end-date"),
+      #  "img_path": "static/img/" + image_file.filename
+    #}
+    #DB.insert_item(data['product_category'], data, image_file.filename)
+    #return redirect(url_for('products-list'))
 
 
 @app.route("/products-list")
@@ -211,6 +214,42 @@ def like(name):
 def unlike(name):
     my_heart = DB.update_heart(session['id'],'N',name)
     return jsonify({'msg': '위시 상품에서 제외되었습니다.'})
+
+
+# 크롤링 코드
+@app.route('/crawl-url', methods=['POST'])
+def crawl_url():
+    data = request.json
+    url = data['url']
+
+    # URL에서 HTML을 가져온 후 BeautifulSoup로 파싱
+    response = requests.get(url)
+    soup = BeautifulSoup(response.content, 'html.parser')
+
+    # 이미지 링크 추출
+    image_link = soup.find('img', class_='prod-image__detail')['src']
+
+    # 제품명 추출
+    title = soup.find('h2', class_='prod-buy-header__title').get_text(strip=True)
+
+    # 가격 정보 추출
+    price_info = soup.select_one('.total-price strong').get_text(strip=True)
+    unit_price_info = soup.select_one('.unit-price').get_text(strip=True)
+    wow_price_info = soup.select('.prod-coupon-price .total-price strong')[1].get_text(strip=True)
+    delivery_info = soup.select_one('.prod-shipping-fee-message em').get_text(strip=True)
+    arrival_info = soup.select_one('.prod-pdd em').get_text(strip=True)
+
+    # 추출된 정보를 JSON 형태로 반환
+    return jsonify({
+        'image_link': image_link,
+        'title': title,
+        'price_info': price_info,
+        'unit_price_info': unit_price_info,
+        'wow_price_info': wow_price_info,
+        'delivery_info': delivery_info,
+        'arrival_info': arrival_info
+    })
+
 
 
 if __name__ == '__main__':

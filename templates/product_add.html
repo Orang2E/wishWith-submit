@@ -63,7 +63,7 @@
               id="product-url"
               placeholder="ex. https://naver.com"
             />
-            <button class="register-btn">등록</button>
+            <button id="crawlBtn" class="register-btn">등록</button>
           </div>
           <div class="product-info">
             <div class="image-placeholder"></div>
@@ -184,6 +184,22 @@
     document.getElementById('joinBtn').addEventListener('click', function () {
       document.getElementById('productForm').submit();
     });
+    document.getElementById('crawlBtn').addEventListener('click', function () {
+        var productUrl = document.getElementById('product-url').value;
+        fetch('/crawl-url', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ url: productUrl }),
+        })
+        .then(response => response.json())
+        .then(data => {
+            // 추출된 데이터를 콘솔에 출력
+            console.log(data);
+        });
+    });
+
   </script>
 
   </body>
