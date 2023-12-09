@@ -17,6 +17,8 @@
       <span class="sort">
         <img src="../static/img/Group.png" alt="sorting img" /> 최신순
       </span>
+      {% if total > 0 %}
+      {% for row in row_data %}
       <div class="container">
         <div id="myModal" class="modal">
           <div class="modal-content">
@@ -36,22 +38,23 @@
                       >
                         <circle cx="8" cy="8" r="8" fill="#00664F" />
                       </svg>
-                      <span id="name">냥냥이</span>
+                      <span id="modal_name"></span>
                     </div>
-                    <div class="review contents">
-                      요즘 날씨가 추워져서 걱정이 많았는데 벗들과 함께 핫팩
-                      공구해서 걱정이 싹 사라졌네요! ㅋㅋ 다들 감기 조심하세요
+                    <div class="review contents", id="modal_content">
                     </div>
                   </div>
                 </div>
                 <div class="line"></div>
-                <div class="product name">해피데이 포켓형 대용량 핫팩 150g</div>
+                <div class="product name" id="modal_product_name"></div>
               </div>
               <div class="card top"></div>
             </div>
             <div id="modlBody"></div>
           </div>
         </div>
+        
+        <!-- 여기가 카드. 위쪽은 모달. -->
+        {% for key, value in row %}
         <div class="UImodal" onClick="showModal(this)">
           <div class="UIcard">
             <div class="card bottom">
@@ -68,411 +71,22 @@
                     >
                       <circle cx="8" cy="8" r="8" fill="#00664F" />
                     </svg>
-                    <span id="name">냥냥이</span>
+                    <span id="name">{{value.name}}</span>
                   </div>
-                  <div class="review contents">
-                    요즘 날씨가 추워져서 걱정이 많았는데 벗들과 함께 핫팩
-                    공구해서 걱정이 싹 사라졌네요! ㅋㅋ 다들 감기 조심하세요
-                  </div>
-                </div>
-              </div>
-              <div class="line"></div>
-              <div class="product name">해피데이 포켓형 대용량 핫팩 150g</div>
-            </div>
-            <div class="card top"></div>
-          </div>
-        </div>
-        <div id="card2">
-          <div class="UIcard">
-            <div class="card bottom">
-              <div class="card textbox">
-                <div class="text">
-                  <div class="nickname box">
-                    <span class="nickname img"></span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <circle cx="8" cy="8" r="8" fill="#00664F" />
-                    </svg>
-                    <span id="name">냥냥이</span>
-                  </div>
-                  <div class="review contents">
-                    요즘 날씨가 추워져서 걱정이 많았는데 벗들과 함께 핫팩
-                    공구해서 걱정이 싹 사라졌네요! ㅋㅋ 다들 감기 조심하세요
+                  <div class="review contents", id="content">
+                    {{value.review}}
                   </div>
                 </div>
               </div>
               <div class="line"></div>
-              <div class="product name">해피데이 포켓형 대용량 핫팩 150g</div>
+              <div class="product name", id="product_name">{{value.title}}</div>
             </div>
             <div class="card top"></div>
           </div>
         </div>
-        <div id="card3">
-          <div class="UIcard">
-            <div class="card bottom">
-              <div class="card textbox">
-                <div class="text">
-                  <div class="nickname box">
-                    <span class="nickname img"></span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <circle cx="8" cy="8" r="8" fill="#00664F" />
-                    </svg>
-                    <span id="name">냥냥이</span>
-                  </div>
-                  <div class="review contents">
-                    요즘 날씨가 추워져서 걱정이 많았는데 벗들과 함께 핫팩
-                    공구해서 걱정이 싹 사라졌네요! ㅋㅋ 다들 감기 조심하세요
-                  </div>
-                </div>
-              </div>
-              <div class="line"></div>
-              <div class="product name">해피데이 포켓형 대용량 핫팩 150g</div>
-            </div>
-            <div class="card top"></div>
-          </div>
-        </div>
-        <div id="card4">
-          <div class="UIcard">
-            <div class="card bottom">
-              <div class="card textbox">
-                <div class="text">
-                  <div class="nickname box">
-                    <span class="nickname img"></span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <circle cx="8" cy="8" r="8" fill="#00664F" />
-                    </svg>
-                    <span id="name">냥냥이</span>
-                  </div>
-                  <div class="review contents">
-                    요즘 날씨가 추워져서 걱정이 많았는데 벗들과 함께 핫팩
-                    공구해서 걱정이 싹 사라졌네요! ㅋㅋ 다들 감기 조심하세요
-                  </div>
-                </div>
-              </div>
-              <div class="line"></div>
-              <div class="product name">해피데이 포켓형 대용량 핫팩 150g</div>
-            </div>
-            <div class="card top"></div>
-          </div>
-        </div>
-        <div id="card5">
-          <div class="UIcard">
-            <div class="card bottom">
-              <div class="card textbox">
-                <div class="text">
-                  <div class="nickname box">
-                    <span class="nickname img"></span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <circle cx="8" cy="8" r="8" fill="#00664F" />
-                    </svg>
-                    <span id="name">냥냥이</span>
-                  </div>
-                  <div class="review contents">
-                    요즘 날씨가 추워져서 걱정이 많았는데 벗들과 함께 핫팩
-                    공구해서 걱정이 싹 사라졌네요! ㅋㅋ 다들 감기 조심하세요
-                  </div>
-                </div>
-              </div>
-              <div class="line"></div>
-              <div class="product name">해피데이 포켓형 대용량 핫팩 150g</div>
-            </div>
-            <div class="card top"></div>
-          </div>
-        </div>
-        <div id="card6">
-          <div class="UIcard">
-            <div class="card bottom">
-              <div class="card textbox">
-                <div class="text">
-                  <div class="nickname box">
-                    <span class="nickname img"></span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <circle cx="8" cy="8" r="8" fill="#00664F" />
-                    </svg>
-                    <span id="name">냥냥이</span>
-                  </div>
-                  <div class="review contents">
-                    요즘 날씨가 추워져서 걱정이 많았는데 벗들과 함께 핫팩
-                    공구해서 걱정이 싹 사라졌네요! ㅋㅋ 다들 감기 조심하세요
-                  </div>
-                </div>
-              </div>
-              <div class="line"></div>
-              <div class="product name">해피데이 포켓형 대용량 핫팩 150g</div>
-            </div>
-            <div class="card top"></div>
-          </div>
-        </div>
-        <div id="card7">
-          <div class="UIcard">
-            <div class="card bottom">
-              <div class="card textbox">
-                <div class="text">
-                  <div class="nickname box">
-                    <span class="nickname img"></span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <circle cx="8" cy="8" r="8" fill="#00664F" />
-                    </svg>
-                    <span id="name">냥냥이</span>
-                  </div>
-                  <div class="review contents">
-                    요즘 날씨가 추워져서 걱정이 많았는데 벗들과 함께 핫팩
-                    공구해서 걱정이 싹 사라졌네요! ㅋㅋ 다들 감기 조심하세요
-                  </div>
-                </div>
-              </div>
-              <div class="line"></div>
-              <div class="product name">해피데이 포켓형 대용량 핫팩 150g</div>
-            </div>
-            <div class="card top"></div>
-          </div>
-        </div>
-        <div id="card8">
-          <div class="UIcard">
-            <div class="card bottom">
-              <div class="card textbox">
-                <div class="text">
-                  <div class="nickname box">
-                    <span class="nickname img"></span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <circle cx="8" cy="8" r="8" fill="#00664F" />
-                    </svg>
-                    <span id="name">냥냥이</span>
-                  </div>
-                  <div class="review contents">
-                    요즘 날씨가 추워져서 걱정이 많았는데 벗들과 함께 핫팩
-                    공구해서 걱정이 싹 사라졌네요! ㅋㅋ 다들 감기 조심하세요
-                  </div>
-                </div>
-              </div>
-              <div class="line"></div>
-              <div class="product name">해피데이 포켓형 대용량 핫팩 150g</div>
-            </div>
-            <div class="card top"></div>
-          </div>
-        </div>
-        <div id="card9">
-          <div class="UIcard">
-            <div class="card bottom">
-              <div class="card textbox">
-                <div class="text">
-                  <div class="nickname box">
-                    <span class="nickname img"></span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <circle cx="8" cy="8" r="8" fill="#00664F" />
-                    </svg>
-                    <span id="name">냥냥이</span>
-                  </div>
-                  <div class="review contents">
-                    요즘 날씨가 추워져서 걱정이 많았는데 벗들과 함께 핫팩
-                    공구해서 걱정이 싹 사라졌네요! ㅋㅋ 다들 감기 조심하세요
-                  </div>
-                </div>
-              </div>
-              <div class="line"></div>
-              <div class="product name">해피데이 포켓형 대용량 핫팩 150g</div>
-            </div>
-            <div class="card top"></div>
-          </div>
-        </div>
-        <div id="card10">
-          <div class="UIcard">
-            <div class="card bottom">
-              <div class="card textbox">
-                <div class="text">
-                  <div class="nickname box">
-                    <span class="nickname img"></span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <circle cx="8" cy="8" r="8" fill="#00664F" />
-                    </svg>
-                    <span id="name">냥냥이</span>
-                  </div>
-                  <div class="review contents">
-                    요즘 날씨가 추워져서 걱정이 많았는데 벗들과 함께 핫팩
-                    공구해서 걱정이 싹 사라졌네요! ㅋㅋ 다들 감기 조심하세요
-                  </div>
-                </div>
-              </div>
-              <div class="line"></div>
-              <div class="product name">해피데이 포켓형 대용량 핫팩 150g</div>
-            </div>
-            <div class="card top"></div>
-          </div>
-        </div>
-        <div id="card11">
-          <div class="UIcard">
-            <div class="card bottom">
-              <div class="card textbox">
-                <div class="text">
-                  <div class="nickname box">
-                    <span class="nickname img"></span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <circle cx="8" cy="8" r="8" fill="#00664F" />
-                    </svg>
-                    <span id="name">냥냥이</span>
-                  </div>
-                  <div class="review contents">
-                    요즘 날씨가 추워져서 걱정이 많았는데 벗들과 함께 핫팩
-                    공구해서 걱정이 싹 사라졌네요! ㅋㅋ 다들 감기 조심하세요
-                  </div>
-                </div>
-              </div>
-              <div class="line"></div>
-              <div class="product name">해피데이 포켓형 대용량 핫팩 150g</div>
-            </div>
-            <div class="card top"></div>
-          </div>
-        </div>
-        <div id="card12">
-          <div class="UIcard">
-            <div class="card bottom">
-              <div class="card textbox">
-                <div class="text">
-                  <div class="nickname box">
-                    <span class="nickname img"></span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <circle cx="8" cy="8" r="8" fill="#00664F" />
-                    </svg>
-                    <span id="name">냥냥이</span>
-                  </div>
-                  <div class="review contents">
-                    요즘 날씨가 추워져서 걱정이 많았는데 벗들과 함께 핫팩
-                    공구해서 걱정이 싹 사라졌네요! ㅋㅋ 다들 감기 조심하세요
-                  </div>
-                </div>
-              </div>
-              <div class="line"></div>
-              <div class="product name">해피데이 포켓형 대용량 핫팩 150g</div>
-            </div>
-            <div class="card top"></div>
-          </div>
-        </div>
-        <div id="card13">
-          <div class="UIcard">
-            <div class="card bottom">
-              <div class="card textbox">
-                <div class="text">
-                  <div class="nickname box">
-                    <span class="nickname img"></span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <circle cx="8" cy="8" r="8" fill="#00664F" />
-                    </svg>
-                    <span id="name">냥냥이</span>
-                  </div>
-                  <div class="review contents">
-                    요즘 날씨가 추워져서 걱정이 많았는데 벗들과 함께 핫팩
-                    공구해서 걱정이 싹 사라졌네요! ㅋㅋ 다들 감기 조심하세요
-                  </div>
-                </div>
-              </div>
-              <div class="line"></div>
-              <div class="product name">해피데이 포켓형 대용량 핫팩 150g</div>
-            </div>
-            <div class="card top"></div>
-          </div>
-        </div>
-        <div id="card14">
-          <div class="UIcard">
-            <div class="card bottom">
-              <div class="card textbox">
-                <div class="text">
-                  <div class="nickname box">
-                    <span class="nickname img"></span>
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      width="16"
-                      height="16"
-                      viewBox="0 0 16 16"
-                      fill="none"
-                    >
-                      <circle cx="8" cy="8" r="8" fill="#00664F" />
-                    </svg>
-                    <span id="name">냥냥이</span>
-                  </div>
-                  <div class="review contents">
-                    요즘 날씨가 추워져서 걱정이 많았는데 벗들과 함께 핫팩
-                    공구해서 걱정이 싹 사라졌네요! ㅋㅋ 다들 감기 조심하세요
-                  </div>
-                </div>
-              </div>
-              <div class="line"></div>
-              <div class="product name">해피데이 포켓형 대용량 핫팩 150g</div>
-            </div>
-            <div class="card top"></div>
-          </div>
-        </div>
+        {% endfor %}
       </div>
+      {% endfor %}
       <div class="page number">
         <div><a href="#">1</a></div>
         <div><a href="#">2</a></div>
@@ -483,6 +97,9 @@
         <div><a href="#">7</a></div>
       </div>
     </div>
+    {% else %}
+    <p>등록된 리뷰가 없습니다.</p>
+    {% endif %}
     <div id="footer"></div>
   </body>
 </html>
@@ -504,7 +121,12 @@
 
   // 모달 창을 여는 함수
   function showModal(card) {
-    var text = card.textContent || card.innerText; // 카드의 텍스트를 가져옵니다
+    var userName = card.querySelector('#name').textContent;
+    document.getElementById("modal_name").innerHTML = userName;
+    var content = card.querySelector('#content').textContent;
+    document.getElementById("modal_content").innerHTML = content;
+    var productName = card.querySelector('#product_name').textContent;
+    document.getElementById("modal_product_name").innerHTML = productName;
     modal.style.display = 'block'; // 모달 창을 표시합니다
   }
 

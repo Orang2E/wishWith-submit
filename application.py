@@ -21,9 +21,6 @@ def login():
     return render_template('login.html')
 
 
-
-
-
 @app.route("/product-add") 
 def productAdd():
     return render_template('product_add.html')
@@ -110,7 +107,22 @@ def reviewDetail():
 
 @app.route("/reviews-list")
 def reviewList():
-    return render_template('all_review_check.html')
+    page = request.args.get("page", 0, type=int)
+    per_page = 6  # item count to display per page
+    per_row = 3  # item count to display per row   
+    start_idx=per_page*page
+    end_idx=per_page*(page+1)
+   
+    data = DB.get_items()  # read the table
+    
+    item_counts = len(data)
+    data = dict(list(data.items())[start_idx:end_idx])
+    tot_count = len(data)
+    
+    row_data = [list(data.items())[i * per_row:(i + 1) * per_row] for i in range(per_page // per_row)]
+
+    return render_template("product_list.html", row_data=row_data, limit=per_page,page=page, page_count=int((item_counts/per_page)+1),total=item_counts)
+#    return render_template('all_review_check.html')
 
 @app.route("/signup1")
 def signup1():
@@ -176,28 +188,45 @@ def reg_review():
     DB.reg_review(data, image_file.filename)
     return redirect(url_for('view_review'))
 
+#@app.route("/products-list")
+def view_list():
+    page = request.args.get("page", 0, type=int)
+    per_page = 6  # item count to display per page
+    per_row = 3  # item count to display per row   
+    start_idx=per_page*page
+    end_idx=per_page*(page+1)
+   
+    data = DB.get_items()  # read the table
+    
+    item_counts = len(data)
+    data = dict(list(data.items())[start_idx:end_idx])
+    tot_count = len(data)
+    
+    row_data = [list(data.items())[i * per_row:(i + 1) * per_row] for i in range(per_page // per_row)]
+
+    return render_template("product_list.html", row_data=row_data, limit=per_page,page=page, page_count=int((item_counts/per_page)+1),total=item_counts)
 
 
-    # 그룹 과제 2 전체리뷰조회화면 추가
+
+# 리뷰 전체조회
 @app.route("/review")
 def view_review():
     page = request.args.get("page", 0, type=int)
-    per_page=3 # item count to display per page
-    per_row=3# item count to display per row
+    per_page=15
+    per_row=5  # row마다 리뷰 개수
     row_count=int(per_page/per_row)
     start_idx=per_page*page
     end_idx=per_page*(page+1)
-    data = DB.get_reviews() #read the table
-    item_counts = len(data)
+    data = DB.get_reviews()  # review 테이블 데이터 불러오기
+    review_count = len(data)
     data = dict(list(data.items())[start_idx:end_idx])
     tot_count = len(data)
     row_data = [list(data.items())[i * per_row:(i + 1) * per_row] for i in range(per_page // per_row)]
     return render_template(
-        "all_review_check.html",
-        row_data=row_data, limit=per_page,page=page, page_count=int((item_counts/per_page)+1),total=item_counts)
+        "all_review_check.html", row_data = row_data, limit=per_page,page=page, page_count=int((review_count/per_page)+1),total=review_count)
+
 
 # 그룹 과제2 리뷰상세 조회 화면 함수 구현
-
 @app.route("/view_review_detail/<review_name>/")
 def view_review_detail(review_name):
     review_data = DB.get_review_byname(review_name)
