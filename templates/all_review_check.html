@@ -47,7 +47,10 @@
                 <div class="line"></div>
                 <div class="product name" id="modal_product_name"></div>
               </div>
-              <div class="card top"></div>
+              <div class="card top">
+                   <img src="" style="width: 100%; height: 100%; border-top-left-radius: 20px; border-top-right-radius: 20px;"
+                        id="modal_img">
+              </div>
             </div>
             <div id="modlBody"></div>
           </div>
@@ -81,7 +84,9 @@
               <div class="line"></div>
               <div class="product name", id="product_name">{{value.title}}</div>
             </div>
-            <div class="card top"></div>
+            <div class="card top">
+              <img src="/static/img/{{value.img_path}}" style="width: 100%; height: 100%; border-top-left-radius: 20px; border-top-right-radius: 20px;">
+            </div>
           </div>
         </div>
         {% endfor %}
@@ -127,6 +132,8 @@
     document.getElementById("modal_content").innerHTML = content;
     var productName = card.querySelector('#product_name').textContent;
     document.getElementById("modal_product_name").innerHTML = productName;
+    var productImgSrc = card.querySelector('.card.top img').src;
+    document.getElementById("modal_img").src = productImgSrc;
     modal.style.display = 'block'; // 모달 창을 표시합니다
   }
 
