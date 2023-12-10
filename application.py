@@ -1,6 +1,10 @@
-from flask import Flask, render_template , url_for, request, redirect , flash, session, jsonify
+from flask import Flask, render_template, url_for, request, redirect, flash, session, jsonify
 from database import DBhandler
+from werkzeug.utils import secure_filename
 import hashlib
+import os
+
+# 여기서부터 나머지 코드...
 
 
 app = Flask(__name__)
@@ -64,7 +68,7 @@ def view_list():
     per_row = 3  # item count to display per row   
     start_idx=per_page*page
     end_idx=per_page*(page+1)
-   
+
     data = DB.get_items()  # read the table
     
     item_counts = len(data)
@@ -225,3 +229,56 @@ def unlike(name):
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5002, debug=True)
+
+
+#현정_작성한 리뷰 관련 함수 추가
+@app.route('/my-reviews')
+def my_reviews():
+    if 'id' not in session:
+        # 사용자가 로그인하지 않았으면 로그인 페이지로 리디렉션
+        return redirect(url_for('login'))
+
+    user_id = session['id']
+    user_reviews = DB.get_user_reviews(user_id)
+    return render_template('my_review.html', reviews=user_reviews)
+
+@app.route('/written-review/<review_id>')
+def written_review(review_id):
+    if 'id' not in session:
+        return redirect(url_for('login'))
+
+    review = DB.get_review_by_id(review_id)
+    return render_template('written_reviews.html', review=review)
+
+#review_add.html 파일의 데이터를 written_review.html 파일로 옮기는 함수들 
+
+@app.route("/reg_review", methods=['POST'])
+def reg_review():
+    if 'id' not in session:
+        flash("로그인이 필요합니다.")
+        return redirect(url_for('login'))
+
+    review_data = {
+        'user_id': session['id'],
+        'title': request.form['title'],
+        'content': request.form['reviewContents'],
+        'rating': request.form.get('reviewStar', '0'),  # 기본값 설정
+        'img_path': ''  # 이미지 경로 초기화
+    }
+
+    # 이미지 파일 처리
+    image_file = request.files.get("img_path")
+    if image_file and image_file.filename != '':
+        filename = secure_filename(image_file.filename)
+        image_file.save(os.path.join('static/img/', filename))
+        review_data['img_path'] = 'static/img/' + filename
+
+# 데이터베이스에 리뷰 저장 및 리뷰 ID 가져오기
+    review_id = DB.reg_review(review_data)
+
+    # written_review 페이지로 리디렉션, 리뷰 ID를 파라미터로 전달
+    return redirect(url_for('written_review', review_id=review_id))
+
+
+
+

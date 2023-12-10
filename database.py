@@ -74,17 +74,6 @@ class DBhandler:
             if value['id'] == id_ and value['pw'] == pw_:
                 return True
         return False
-    def reg_review(self, data, img_path):
-            review_info ={
-                "name": data['name'],
-                "title": data['title'],
-                "rate": data['rate'],
-                "review": data['review'],
-                "img_path": img_path
-                
-            }
-            self.db.child("review").child(data['name']).set(review_info)
-            return True
     
     #그룹 과제2 전체, 상세 리뷰조회 화면 함수 추가 
     def get_reviews(self):
@@ -121,7 +110,26 @@ class DBhandler:
         return True
         
 
-    
+#현정_작성한 리뷰 코드 추가& review_add.html파일의 데이터를 my_review.html 파일로 옮기는 함수들
+    def get_user_reviews(self, user_id):
+        reviews = self.db.child("review").get().val()
+        user_reviews = [review for review in reviews.values() if review['user_id'] == user_id]
+        return user_reviews
 
-    
-        
+#기존의 reg_review 함수 삭제하고 통합시킨 코드
+    def reg_review(self, *args, **kwargs):
+        # args나 kwargs를 사용하여 review_data를 추출
+        review_data = args[0] if args else kwargs
+
+        # review_data에서 필요한 정보 추출
+        review_info = {
+            "user_id": review_data.get('user_id', ''),
+            "name": review_data.get('name', ''),  
+            "title": review_data.get('title', ''),
+            "rate": review_data.get('rate', ''),
+            "review": review_data.get('review', ''),
+            "img_path": review_data.get('img_path', '')  
+        }
+
+        # Firebase 데이터베이스에 review_info 저장
+        self.db.child("reviews").push(review_info)
