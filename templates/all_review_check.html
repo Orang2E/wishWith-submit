@@ -40,13 +40,13 @@
                       </svg>
                       <span id="modal_name"></span>
                     </div>
-                    <div class="review contents", id="modal_content">
+                    <div class="modalcontents", id="modal_content">
                     </div>
                   </div>
                 </div>
                 <div class="line"></div>
-                <div class="product name" id="modal_product_name"></div>
-              </div>
+                <div class="modalprodname" id="modal_product_name"></div>
+                </div>
               <div class="card top">
                    <img src="" style="width: 100%; height: 100%; border-top-left-radius: 20px; border-top-right-radius: 20px;"
                         id="modal_img">
@@ -58,7 +58,7 @@
         
         <!-- 여기가 카드. 위쪽은 모달. -->
         {% for key, value in row %}
-        <div class="UImodal" onClick="showModal(this)">
+        <div class="UImodal" onClick="showModal(this)" data-review="{{value.review}}">
           <div class="UIcard">
             <div class="card bottom">
               <div class="card textbox">
@@ -76,13 +76,10 @@
                     </svg>
                     <span id="name">{{value.name}}</span>
                   </div>
-                  <div class="review contents", id="content">
-                    {{value.review}}
+                    <div class="product name", id="product_name">{{value.title}}</div>
                   </div>
                 </div>
-              </div>
-              <div class="line"></div>
-              <div class="product name", id="product_name">{{value.title}}</div>
+              
             </div>
             <div class="card top">
               <img src="/static/img/{{value.img_path}}" style="width: 100%; height: 100%; border-top-left-radius: 20px; border-top-right-radius: 20px;">
@@ -128,7 +125,7 @@
   function showModal(card) {
     var userName = card.querySelector('#name').textContent;
     document.getElementById("modal_name").innerHTML = userName;
-    var content = card.querySelector('#content').textContent;
+    var content = card.getAttribute('data-review');
     document.getElementById("modal_content").innerHTML = content;
     var productName = card.querySelector('#product_name').textContent;
     document.getElementById("modal_product_name").innerHTML = productName;
