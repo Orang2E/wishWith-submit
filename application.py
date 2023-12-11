@@ -252,6 +252,27 @@ def unlike(name):
     my_heart = DB.update_heart(session['id'],'N',name)
     return jsonify({'msg': '위시 상품에서 제외되었습니다.'})
 
+@app.route("/wishlist")
+def wishlist():
+    page = request.args.get("page", 0, type=int)
+    per_page = 10
+    per_row = 5
+
+    data = DB.get_wish_product_list_byuser(session['id'])
+
+    if not data:
+        return render_template("wish_list.html", row_data=[], limit=per_page, page=page, page_count=0, total=0)
+
+    data_list = list(data.items())
+    products_count = len(data_list)
+
+    start_idx = per_page * page
+    end_idx = per_page * (page + 1)
+    paginated_data = dict(data_list[start_idx:end_idx])
+
+    row_data = [list(paginated_data.items())[i * per_row:(i + 1) * per_row] for i in range(per_page // per_row)]
+    return render_template("wish_list.html", row_data=row_data, limit=per_page, page=page, page_count=int((products_count / per_page) + 1), total=products_count)
+
 
 if __name__ == '__main__':
     app.run('0.0.0.0', port=5002, debug=True)
