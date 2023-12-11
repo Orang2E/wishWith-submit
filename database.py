@@ -120,3 +120,18 @@ class DBhandler:
         self.db.child("heart").child(user_id).child(item).set(heart_info)
         return True
     
+    def get_wish_product_list_byuser(self, uid):
+        hearts = self.db.child("heart").child(uid).get()
+        target_values = []
+
+        if hearts.val() is None:
+            return target_values
+        for res in hearts.each():
+            product_key = res.key()
+            interested_value = res.val().get("interested", "")
+            if interested_value == 'Y':
+                target_values.append(product_key)
+
+        items = self.db.child("item").get().val()
+        filtered_items = {key: value for key, value in items.items() if key in target_values}
+        return filtered_items
