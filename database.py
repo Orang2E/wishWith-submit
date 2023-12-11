@@ -26,6 +26,7 @@ class DBhandler:
     def get_items(self ):
         items = self.db.child("item").get().val()
         return items
+    
     def get_item_byname(self, name):
         items = self.db.child("item").get()
         target_value = ""
@@ -81,7 +82,6 @@ class DBhandler:
                 "rate": data['rate'],
                 "review": data['review'],
                 "img_path": img_path
-                
             }
             self.db.child("review").child(data['name']).set(review_info)
             return True
@@ -119,9 +119,4 @@ class DBhandler:
         }
         self.db.child("heart").child(user_id).child(item).set(heart_info)
         return True
-        
-
     
-
-    
-        
