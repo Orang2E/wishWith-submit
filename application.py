@@ -57,12 +57,13 @@ def registerproduct():
 @app.route("/products-list")
 def view_list():
     page = request.args.get("page", 0, type=int)
+    category = request.args.get("category", None)  # 카테고리 인자 추가
     per_page = 6  # item count to display per page
     per_row = 3  # item count to display per row   
     start_idx=per_page*page
     end_idx=per_page*(page+1)
    
-    data = DB.get_items()  # read the table
+    data = DB.get_items(category=category)  # read the table
     
     item_counts = len(data)
     data = dict(list(data.items())[start_idx:end_idx])
@@ -195,7 +196,7 @@ def view_list():
     per_row = 3  # item count to display per row   
     start_idx=per_page*page
     end_idx=per_page*(page+1)
-   
+
     data = DB.get_items()  # read the table
     
     item_counts = len(data)

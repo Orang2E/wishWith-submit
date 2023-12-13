@@ -23,8 +23,12 @@ class DBhandler:
         print(data, img_path)
         return True
     
-    def get_items(self ):
+    def get_items(self, category=None):
         items = self.db.child("item").get().val()
+        if category:
+        # 카테고리 필터링 로직을 추가
+            items = {k: v for k, v in items.items() if v['product_category'] == category}
+    
         return items
     
     def get_item_byname(self, name):
