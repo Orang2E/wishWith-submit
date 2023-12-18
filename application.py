@@ -1,4 +1,5 @@
 from flask import Flask, render_template , url_for, request, redirect , flash, session, jsonify
+
 from database import DBhandler
 import hashlib
 
@@ -73,6 +74,21 @@ def view_list():
 
     return render_template("product_list.html", row_data=row_data, limit=per_page,page=page, page_count=int((item_counts/per_page)+1),total=item_counts)
 
+@app.route('/show_heart/<name>/', methods=['GET'])
+def show_heart(name):
+    my_heart = DB.get_heart_byname(session['id'], name)
+    return jsonify({'my_heart': my_heart})
+
+@app.route('/like/<name>/', methods=['POST'])
+def like(name):
+    my_heart = DB.update_heart(session['id'],'Y',name)
+    return jsonify({'msg': '위시 상품에 등록되었습니다!'})
+
+@app.route('/unlike/<name>/', methods=['POST'])
+def unlike(name):
+    my_heart = DB.update_heart(session['id'],'N',name)
+    return jsonify({'msg': '위시 상품에서 제외되었습니다.'})
+    
 @app.route("/parti-product") 
 def partiProduct():
     return render_template("parti_product.html")
@@ -80,7 +96,6 @@ def partiProduct():
 @app.route("/written-review")
 def writtenReview():
     return render_template("written_review.html")
-
 
 @app.route("/view_detail/<name>/")
 def view_item_detail(name):
@@ -96,7 +111,6 @@ def productDetail():
 @app.route("/my-review")
 def myReview():
     return render_template('my_review.html')
-
 
 @app.route("/review-add") 
 def reviewAdd():

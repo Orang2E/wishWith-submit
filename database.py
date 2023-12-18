@@ -75,6 +75,7 @@ class DBhandler:
             if value['id'] == id_ and value['pw'] == pw_:
                 return True
         return False
+
     def reg_review(self, data, img_path):
             review_info ={
                 "name": data['name'],
@@ -107,6 +108,7 @@ class DBhandler:
         target_value=""
         if hearts.val() == None:
             return target_value
+
         for res in hearts.each():
             key_value = res.key()
             if key_value == name:
@@ -119,6 +121,7 @@ class DBhandler:
         }
         self.db.child("heart").child(user_id).child(item).set(heart_info)
         return True
+
     
     def get_wish_product_list_byuser(self, uid):
         hearts = self.db.child("heart").child(uid).get()
@@ -135,3 +138,4 @@ class DBhandler:
         items = self.db.child("item").get().val()
         filtered_items = {key: value for key, value in items.items() if key in target_values}
         return filtered_items
+
