@@ -39,17 +39,7 @@
               </div>
 
               <input type="file" id="img_path" name="img_path" accept="image/*">
-            </div>
-            
-            
-            
-            
-            
-            
-            
-            
-            
-            
+            </div> 
           <div style="display: flex; flex-direction: row;  align-items: center;">
             <div style="display: flex; width: 30%; flex-direction: column;">
               <div class="form-title">상품 URL</div>
@@ -80,13 +70,14 @@
                 상품의 성격과 가장 알맞은 카테고리를 선택해주세요.
               </div>
             </div>
-
-            <input
-              type="text"
-              id="product-category"
-              placeholder="생필품"
-              name = "product-category"
-            />
+            <select name="product-category" id="product-category">
+              <option value="생필품">생필품</option>
+              <option value="식료품" selected>식료품</option>
+              <option value="문구류">문구류</option>
+              <option value="패션잡화">패션잡화</option>
+              <option value="이화굿즈">이화굿즈</option>
+              <option value="기타">기타</option>
+              </select>
         </div>
       </div>
       <div class="form-section">
@@ -112,7 +103,6 @@
             name="end-date"   
             style="width: 200px;"
             placeholder="종료 날짜를 선택해주세요."
-                 
           />
         </div>
         

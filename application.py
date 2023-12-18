@@ -26,20 +26,22 @@ def login():
 def productAdd():
     return render_template('product_add.html')
 
-@app.route("/header-before")
+@app.route("/header")
 def headerBefore():
-    return render_template('layout/header_before.html')
-@app.route("/header-after")
+    return render_template('layout/header.html')
+@app.route("/header-only")
 def headerAfter():
-    return render_template('layout/header_after.html')
+    return render_template('layout/header_only.html')
+@app.route("/footer")
+def footerEnter():
+    return render_template('layout/footer.html')
 
 @app.route("/add-product-post", methods=["POST"])
 def registerproduct():
     print(request.form)  # 확인용 출력
     print(request.files)  # 확인용 출력
     image_file = request.files["img_path"]
-    storage_path = "img/" + image_file.filename
-    storage.child(storage_path).put(image_file)
+    image_file.save("static/img/{}".format(image_file.filename))
     data = {
         "product_description": request.form.get("product-description"),
         "product_place": request.form.get("product-place"),
@@ -50,7 +52,8 @@ def registerproduct():
         "img_path": "static/img/" + image_file.filename
     }
     DB.insert_item(data['product_category'], data, image_file.filename)
-    return redirect(url_for('products-list'))
+    return render_template("product_list.html", data={ "img_path": "static/img/" + image_file.filename, **data })
+
 
 
 @app.route("/products-list")
@@ -86,6 +89,13 @@ def unlike(name):
     my_heart = DB.update_heart(session['id'],'N',name)
     return jsonify({'msg': '위시 상품에서 제외되었습니다.'})
     
+@app.route("/parti-product") 
+def partiProduct():
+    return render_template("parti_product.html")
+
+@app.route("/written-review")
+def writtenReview():
+    return render_template("written_review.html")
 
 @app.route("/view_detail/<name>/")
 def view_item_detail(name):
@@ -98,6 +108,10 @@ def productDetail():
     return render_template('product_detail.html')
 
 
+@app.route("/my-review")
+def myReview():
+    return render_template('my_review.html')
+
 @app.route("/review-add") 
 def reviewAdd():
     return render_template('review_add.html')
@@ -108,7 +122,22 @@ def reviewDetail():
 
 @app.route("/reviews-list")
 def reviewList():
-    return render_template('reviews_list.html')
+    page = request.args.get("page", 0, type=int)
+    per_page = 6  # item count to display per page
+    per_row = 3  # item count to display per row   
+    start_idx=per_page*page
+    end_idx=per_page*(page+1)
+   
+    data = DB.get_items()  # read the table
+    
+    item_counts = len(data)
+    data = dict(list(data.items())[start_idx:end_idx])
+    tot_count = len(data)
+    
+    row_data = [list(data.items())[i * per_row:(i + 1) * per_row] for i in range(per_page // per_row)]
+
+    return render_template("product_list.html", row_data=row_data, limit=per_page,page=page, page_count=int((item_counts/per_page)+1),total=item_counts)
+#    return render_template('all_review_check.html')
 
 @app.route("/signup1")
 def signup1():
@@ -151,6 +180,112 @@ def logout_user():
     session.clear()
     return redirect(url_for('index'))
 
+@app.route("/reg_review_init/<name>/")
+def reg_review_init(name):
+    return render_template("review_add.html", name=name)
+
+@app.route("/reg_review", methods=['POST'])
+def reg_review():
+    print(request.files)
+    image_file = request.files.get("img_path")
+    image_file.save("static/img/{}".format(image_file.filename))
+    
+    # 'reviewStar' 키가 없을 경우 기본값으로 '0' 사용
+    rate = request.form.get('reviewStar', '0')
+
+    data = {
+        'name': request.form['name'],
+        'title': request.form['title'],
+        'rate': rate,
+        'review': request.form['reviewContents'],
+        "img_path": "static/img/" + image_file.filename
+    }
+    DB.reg_review(data, image_file.filename)
+    return redirect(url_for('view_review'))
+
+#@app.route("/products-list")
+def view_list():
+    page = request.args.get("page", 0, type=int)
+    per_page = 6  # item count to display per page
+    per_row = 3  # item count to display per row   
+    start_idx=per_page*page
+    end_idx=per_page*(page+1)
+   
+    data = DB.get_items()  # read the table
+    
+    item_counts = len(data)
+    data = dict(list(data.items())[start_idx:end_idx])
+    tot_count = len(data)
+    
+    row_data = [list(data.items())[i * per_row:(i + 1) * per_row] for i in range(per_page // per_row)]
+
+    return render_template("product_list.html", row_data=row_data, limit=per_page,page=page, page_count=int((item_counts/per_page)+1),total=item_counts)
+
+
+
+# 리뷰 전체조회
+@app.route("/review")
+def view_review():
+    page = request.args.get("page", 0, type=int)
+    per_page=15
+    per_row=5  # row마다 리뷰 개수
+    row_count=int(per_page/per_row)
+    start_idx=per_page*page
+    end_idx=per_page*(page+1)
+    data = DB.get_reviews()  # review 테이블 데이터 불러오기
+    review_count = len(data)
+    data = dict(list(data.items())[start_idx:end_idx])
+    tot_count = len(data)
+    row_data = [list(data.items())[i * per_row:(i + 1) * per_row] for i in range(per_page // per_row)]
+    return render_template(
+        "all_review_check.html", row_data = row_data, limit=per_page,page=page, page_count=int((review_count/per_page)+1),total=review_count)
+
+
+# 그룹 과제2 리뷰상세 조회 화면 함수 구현
+@app.route("/view_review_detail/<review_name>/")
+def view_review_detail(review_name):
+    review_data = DB.get_review_byname(review_name)
+    if review_data:
+        return render_template("review_detail.html", review=review_data)
+    else:
+        flash("Review not found!")
+        return redirect(url_for('view_review'))
+    
+@app.route('/show_heart/<name>/', methods=['GET'])
+def show_heart(name):
+    my_heart = DB.get_heart_byname(session['id'], name)
+    return jsonify({'my_heart': my_heart})
+
+@app.route('/like/<name>/', methods=['POST'])
+def like(name):
+    my_heart = DB.update_heart(session['id'],'Y',name)
+    return jsonify({'msg': '위시 상품에 등록되었습니다!'})
+
+@app.route('/unlike/<name>/', methods=['POST'])
+def unlike(name):
+    my_heart = DB.update_heart(session['id'],'N',name)
+    return jsonify({'msg': '위시 상품에서 제외되었습니다.'})
+
+@app.route("/wishlist")
+def wishlist():
+    page = request.args.get("page", 0, type=int)
+    per_page = 10
+    per_row = 5
+
+    data = DB.get_wish_product_list_byuser(session['id'])
+
+    if not data:
+        return render_template("wish_list.html", row_data=[], limit=per_page, page=page, page_count=0, total=0)
+
+    data_list = list(data.items())
+    products_count = len(data_list)
+
+    start_idx = per_page * page
+    end_idx = per_page * (page + 1)
+    paginated_data = dict(data_list[start_idx:end_idx])
+
+    row_data = [list(paginated_data.items())[i * per_row:(i + 1) * per_row] for i in range(per_page // per_row)]
+    return render_template("wish_list.html", row_data=row_data, limit=per_page, page=page, page_count=int((products_count / per_page) + 1), total=products_count)
 
 
 if __name__ == '__main__':

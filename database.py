@@ -26,6 +26,7 @@ class DBhandler:
     def get_items(self ):
         items = self.db.child("item").get().val()
         return items
+    
     def get_item_byname(self, name):
         items = self.db.child("item").get()
         target_value = ""
@@ -38,8 +39,6 @@ class DBhandler:
                 target_value = res.val()
 
         return target_value
-
-    
 
 
     
@@ -77,13 +76,39 @@ class DBhandler:
                 return True
         return False
 
+    def reg_review(self, data, img_path):
+            review_info ={
+                "name": data['name'],
+                "title": data['title'],
+                "rate": data['rate'],
+                "review": data['review'],
+                "img_path": img_path
+            }
+            self.db.child("review").child(data['name']).set(review_info)
+            return True
+    
+    #그룹 과제2 전체, 상세 리뷰조회 화면 함수 추가 
+    def get_reviews(self):
+        reviews = self.db.child("review").get().val()
+        return reviews
+    
+    def get_review_byname(self, review_name):
+        reviews = self.db.child("review").get()
+        target_review = None
 
+        for res in reviews.each():
+            if res.key() == review_name:
+                target_review = res.val()
+                break
+
+        return target_review
+    
     def get_heart_byname(self, uid, name):
         hearts = self.db.child("heart").child(uid).get()
         target_value=""
         if hearts.val() == None:
             return target_value
- 
+
         for res in hearts.each():
             key_value = res.key()
             if key_value == name:
@@ -96,4 +121,21 @@ class DBhandler:
         }
         self.db.child("heart").child(user_id).child(item).set(heart_info)
         return True
-        
+
+    
+    def get_wish_product_list_byuser(self, uid):
+        hearts = self.db.child("heart").child(uid).get()
+        target_values = []
+
+        if hearts.val() is None:
+            return target_values
+        for res in hearts.each():
+            product_key = res.key()
+            interested_value = res.val().get("interested", "")
+            if interested_value == 'Y':
+                target_values.append(product_key)
+
+        items = self.db.child("item").get().val()
+        filtered_items = {key: value for key, value in items.items() if key in target_values}
+        return filtered_items
+

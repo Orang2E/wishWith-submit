@@ -1,21 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <style>
-      #heart {
-        fill: none;
-      }
-      #heart.red {
-        fill: "#E27A6C";
-      }
-    </style>
     <link
       rel="stylesheet"
       type="text/css"
-      href="../static/css/product_list.css"
+      href="../static/css/wish_list.css"
     />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <script src="https://code.jquery.com/jquery-latest.min.js"></script>
   </head>
   <div id="header"></div>
      <div class="banner"></div>
@@ -33,7 +24,7 @@
                 <span class="category-label">{{value.product_category}} | {{value.product_place}} | </span>
                 <span class="store">쿠팡</span>
               </div>
-              <div class="product-name" id="product_name" data-product-name="{{ value.product_description }}">{{ value.product_description }}</div>
+              <div class="product-name">{{ value.product_description }}</div>
               <div class="price">{{value.product_number}}개, 25000원</div>
             </div>
             <div class="progress">
@@ -50,13 +41,11 @@
           <div class="inner-box2">
             <img src="/static/img/{{value.img_path}}" style="width: 100%; height: 100%; border-top-left-radius: 20px; border-top-right-radius: 20px;">
             <svg
-              id="heart"
               class="heart"
-              id="heart"
               width="28"
               height="24"
               viewBox="0 0 28 24"
-              fill="none"
+              fill="#E27A6C"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path
@@ -100,74 +89,4 @@
       document.getElementById("footer").innerHTML = data;
     });
   </script>
-
-  {% block section %}
-  <script>
-  $(document).ready(function () {
-    $(".container").each(function () {
-      var container = $(this);
-      var heart = container.find(".heart");
-      showHeart(container, heart);
-    });
-  });
-
-  function showHeart(container, heart) {
-    console.log("showHeart called");
-    var productName = container.find(".product-name").data("product-name");
-    $.ajax({
-      type: 'GET',
-      url: '/show_heart/' + productName + '/',
-      data: {},
-      success: function (response) {
-        let my_heart = response['my_heart'];
-        if (my_heart['interested'] == 'Y') {
-          heart.css("fill", "#E27A6C");
-          heart.click(function (event) {
-            event.stopPropagation();
-            unlike(productName); // Pass productName to unlike
-          });
-        } else {
-          heart.css("fill", "none");
-          heart.click(function (event) {
-            event.stopPropagation();
-            like(productName); // Pass productName to like
-          });
-        }
-
-        container.attr("onclick", 'location.href="/view_detail/' + productName + '/";');
-      }
-    });
-  }
-
-  function like(productName) {
-    $.ajax({
-      type: 'POST',
-      url: '/like/' + productName + '/', // Use productName in the URL
-      data: {
-        interested: "Y"
-      },
-      success: function (response) {
-        alert(response['msg']);
-        window.location.reload();
-      }
-    });
-  }
-
-  function unlike(productName) {
-    $.ajax({
-      type: 'POST',
-      url: '/unlike/' + productName + '/', // Use productName in the URL
-      data: {
-        interested: "N"
-      },
-      success: function (response) {
-        alert(response['msg']);
-        window.location.reload();
-      }
-    });
-  }
-</script>
-  {% endblock %}
-  </body>
 </html>
-
